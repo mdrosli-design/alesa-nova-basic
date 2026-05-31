@@ -64,6 +64,12 @@ FIX (no human-review needed — just don't ship the secret):
   • If this is a publishable/anon key, name it clearly (pk_*, *_ANON_KEY) — those are allowed.
 
 Override (only if you are certain it is safe):  NOVA_SECRET_GATE_MODE=warn  (per-command env)
+
+🇲🇾 KENAPA DISEKAT: secret/kredential sebenar hampir masuk ke code CLIENT-EXPOSED atau deploy bundle.
+   Ini punca #1 app vibe-coded bocor (API key dalam client JS / service-role key terdedah).
+   FIX: pindah secret ke .env server-side (gitignore) · JANGAN hardcode dalam src/public/dist ·
+        client baca config PUBLIC sahaja (pk_* / *_ANON_KEY) — itu dibenarkan.
+   Override (kalau pasti selamat): NOVA_SECRET_GATE_MODE=warn
 ═══════════════════════════════════════════════════════════════════════════
 EOF
   exit 2

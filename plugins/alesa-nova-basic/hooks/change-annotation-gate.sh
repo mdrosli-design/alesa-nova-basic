@@ -65,6 +65,10 @@ This code change has no reviewer annotation. Add a remark at the changed region:
    // [CHANGE $TODAY] what: <what changed> · why: <reason> · verify: <how to check>
 (use the comment syntax for the file's language: # , -- , <!-- -->, /* */)
 Logged for review. Non-blocking.
+
+🇲🇾 Edit code ini takde nota untuk reviewer. Tambah remark di bahagian yang berubah:
+   // [CHANGE $TODAY] what: <apa berubah> · why: <sebab> · verify: <cara semak>
+   (guna sintaks komen ikut bahasa fail). Direkod untuk review · tidak menyekat.
 ══════════════════════════════════════════════
 EOF
 exit 0

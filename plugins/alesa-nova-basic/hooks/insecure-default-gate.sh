@@ -58,6 +58,12 @@ FIX (no human review needed — just don't ship the insecure default):
   • CORS: name explicit origins when credentials are allowed (never '*' + credentials).
 
 Override (only if you are certain it is safe):  NOVA_INSECURE_GATE_MODE=warn
+
+🇲🇾 KENAPA DISEKAT: ini tetapan tak-selamat (insecure default) yang biasa — cara #1 app vibe-coded dedah data
+   (RLS dimatikan / rules terbuka / TLS verify dimatikan / debug-dalam-prod / wildcard-CORS+credentials).
+   FIX: kekal Row Level Security ON + tulis policy berskop (auth.uid = user_id), bukan policy terbuka-penuh ·
+        jangan matikan TLS verify dalam code · APP_DEBUG=false di prod · CORS sebut origin spesifik bila ada credentials.
+   Override (kalau pasti selamat): NOVA_INSECURE_GATE_MODE=warn
 ═══════════════════════════════════════════════════════════════════════════════
 EOF
   exit 2

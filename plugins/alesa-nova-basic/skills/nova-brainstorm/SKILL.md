@@ -1,6 +1,6 @@
 ---
 name: nova-brainstorm
-description: "Design before you build. Force a short plan — goal, approach, risks, what could break — and get it agreed BEFORE writing code, so the agent doesn't sprint in the wrong direction. Use when: 'how should I build', 'plan this', 'design', starting a non-trivial feature, or when a request is ambiguous."
+description: "Design before you build. Force a short plan — goal, approach, risks, what could break — and get it agreed BEFORE writing code, so the agent doesn't sprint in the wrong direction. Use when: 'how should I build', 'plan this', 'design', starting a non-trivial feature, or when a request is ambiguous. BM: 'macam mana nak bina', 'rancang dulu', 'reka bentuk', mula feature baru, atau bila permintaan kabur."
 ---
 
 # nova-brainstorm — think before the agent sprints

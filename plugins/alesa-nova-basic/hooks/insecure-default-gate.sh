@@ -59,11 +59,11 @@ FIX (no human review needed — just don't ship the insecure default):
 
 Override (only if you are certain it is safe):  NOVA_INSECURE_GATE_MODE=warn
 
-🇲🇾 KENAPA DISEKAT: ini tetapan tak-selamat (insecure default) yang biasa — cara #1 app vibe-coded dedah data
-   (RLS dimatikan / rules terbuka / TLS verify dimatikan / debug-dalam-prod / wildcard-CORS+credentials).
-   FIX: kekal Row Level Security ON + tulis policy berskop (auth.uid = user_id), bukan policy terbuka-penuh ·
-        jangan matikan TLS verify dalam code · APP_DEBUG=false di prod · CORS sebut origin spesifik bila ada credentials.
-   Override (kalau pasti selamat): NOVA_INSECURE_GATE_MODE=warn
+🇲🇾 KENAPA DISEKAT: ini tetapan lalai yang tidak selamat — cara #1 app vibe-coded mendedahkan data
+   (RLS dimatikan / rules terbuka / TLS verify dimatikan / debug dalam prod / wildcard CORS dengan credentials).
+   CARA BETUL: kekalkan Row Level Security aktif dan tulis policy berskop (auth.uid = user_id), bukan policy terbuka-penuh ·
+        jangan matikan TLS verify dalam kod · tetapkan APP_DEBUG=false di prod · nyatakan origin spesifik untuk CORS apabila ada credentials.
+   Override (hanya jika anda pasti ia selamat): NOVA_INSECURE_GATE_MODE=warn
 ═══════════════════════════════════════════════════════════════════════════════
 EOF
   exit 2

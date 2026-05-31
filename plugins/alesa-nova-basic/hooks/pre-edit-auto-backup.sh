@@ -39,7 +39,7 @@ RECENT_BAK=$(find "$(dirname "$FILE_PATH")" -maxdepth 1 -name "$(basename "$FILE
 TS=$(date +%Y%m%d-%H%M%S)
 BAK="${FILE_PATH}.bak.auto.${TS}"
 if cp -a "$FILE_PATH" "$BAK" 2>/dev/null; then
-  echo "✓ NOVA Basic: backed up before edit · dah backup sebelum edit → $(basename "$BAK")" >&2
+  echo "✓ NOVA Basic: backed up before edit · backup dibuat sebelum edit → $(basename "$BAK")" >&2
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] BACKUP path=$FILE_PATH bak=$BAK tool=$TOOL" >> "$LOG"
   exit 0
 fi

@@ -44,26 +44,27 @@ Licensing & higher editions: **hello@alesa.my** · **https://alesa.my**
 
 # 🇲🇾 ALESA NOVA — Marketplace (percuma)
 
-**Coding-AI yang berdisiplin untuk pembina solo. Vibe code tanpa bencana.**
+**AI coding yang berdisiplin untuk pembina solo. Vibe code tanpa bencana.**
 
-Marketplace ini menyediakan **ALESA NOVA Basic** — plugin Claude Code percuma yang menambah
-pagar keselamatan **mekanikal** pada AI coding agent anda: hook yang **bertindak** pada saat risiko
-(sekat atau backup), bukan sekadar peringatan. Ia jawapan kepada masalah sebenar AI coding laju —
-secret bocor, tetapan tak selamat (insecure default), kerja tertimpa, dan dakwaan "siap" yang
-sebenarnya tak pernah disahkan.
+Marketplace ini menyediakan **ALESA NOVA Basic** — plugin Claude Code percuma yang melengkapkan
+AI coding agent anda dengan pagar keselamatan **automatik**. Bukan sekadar peringatan — hook-nya
+benar-benar bertindak pada saat berisiko: menyekat tindakan bahaya atau membuat backup dengan
+sendiri. Ia direka untuk menangani masalah yang kerap timbul apabila kita coding laju bersama AI —
+secret bocor, tetapan lalai yang tidak selamat (insecure default), kod sedia ada tertimpa-ganti,
+dan kerja yang didakwa "siap" sedangkan tidak pernah disahkan.
 
-## Apa ALESA NOVA Basic beri anda
+## Apa yang ALESA NOVA Basic beri anda
 
-| Pagar (gate) | Apa ia buat | Bencana yang dielak |
+| Pagar (gate) | Fungsinya | Bencana yang dielakkan |
 |-------|--------------|----------------------|
-| **secret-leak gate** | Sekat API key / token / DB password / private key sebenar daripada masuk ke fail client-exposed atau commit. | Tertolak API key ke repo public. |
-| **insecure-default gate** | Sekat RLS-off, TLS-verify-off, wildcard CORS + credentials, `DEBUG` dalam env prod. | Database terdedah luas & lubang keselamatan. |
-| **backup-before-edit** | Auto-simpan `<file>.bak.auto` sebelum agent edit fail sedia ada. | "AI tertimpa code aku yang dah jalan." |
-| **change-annotation** | Ingatkan nota `// [CHANGE] what · why · verify` pada setiap edit code. | Code yang tak siapa faham kemudian. |
+| **secret-leak gate** | Menyekat API key / token / DB password / private key sebenar daripada masuk ke fail yang terdedah kepada client (client-exposed) atau ke dalam commit. | API key tertolak ke repo awam. |
+| **insecure-default gate** | Menyekat RLS dimatikan, TLS-verify dimatikan, wildcard CORS dengan credentials, dan `DEBUG` dalam env prod. | Database terdedah luas dan lubang keselamatan. |
+| **backup-before-edit** | Membuat backup `<file>.bak.auto` dengan sendiri sebelum agent mengedit fail sedia ada. | "AI tertimpa-ganti kod aku yang dah berjalan." |
+| **change-annotation** | Mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod. | Kod yang tiada siapa boleh fahami kemudian hari. |
 
-Tambah satu kaedah kerja (3 Laws · "siap" berasaskan bukti · jangan-percaya-sebelum-disahkan)
-dan dua skill — `/nova-verify` (pengesahan sistematik + jadual bukti) dan `/nova-brainstorm`
-(reka bentuk sebelum bina).
+Disertakan juga satu kaedah kerja (3 Laws · "siap" mesti berasaskan bukti · jangan percaya
+sebelum disahkan) dan dua skill — `/nova-verify` (pengesahan sistematik + jadual bukti) dan
+`/nova-brainstorm` (reka bentuk sebelum bina).
 
 ## Pasang (Install)
 
@@ -71,17 +72,18 @@ dan dua skill — `/nova-verify` (pengesahan sistematik + jadual bukti) dan `/no
 /plugin marketplace add mdrosli-design/alesa-nova-basic
 /plugin install alesa-nova-basic@alesa-nova
 ```
-Restart Claude Code, kemudian jalankan `/nova-basic` untuk lihat apa yang aktif.
+Mulakan semula Claude Code, kemudian jalankan `/nova-basic` untuk melihat apa yang sedang aktif.
 
-Dua security gate **menyekat secara default**. Tukar ke amaran-sahaja (warn) semasa anda belajar:
-`NOVA_SECRET_GATE_MODE=warn` · `NOVA_INSECURE_GATE_MODE=warn`.
+Kedua-dua security gate ini **menyekat secara lalai**. Tukarkan kepada mod amaran sahaja (warn)
+sementara anda masih belajar: `NOVA_SECRET_GATE_MODE=warn` · `NOVA_INSECURE_GATE_MODE=warn`.
 
 ## Edisi
 
-**Basic** (ini — percuma, solo) → **Compliance** (berlesen: PDPA Malaysia · ISO/IEC 27001 ·
-penjajaran MAMPU + suite keselamatan/audit) → multi-tenant pasukan/agensi + pengawasan masa-nyata.
+**Basic** (ini — percuma, untuk solo) → **Compliance** (berlesen: PDPA Malaysia · ISO/IEC 27001 ·
+penjajaran MAMPU + suite keselamatan/audit) → multi-tenant untuk pasukan/agensi + pengawasan
+masa nyata.
 
 Pelesenan & edisi lebih tinggi: **hello@alesa.my** · **https://alesa.my**
 
 ---
-© ALESA IT Services. Basic percuma untuk kegunaan individu — lihat LICENSE.txt plugin.
+© ALESA IT Services. Edisi Basic percuma untuk kegunaan individu — lihat LICENSE.txt plugin.

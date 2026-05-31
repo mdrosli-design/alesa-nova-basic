@@ -1,6 +1,6 @@
 ---
 name: nova-verify
-description: "Systematic verification before claiming a change is done. Iron rule — LINT IS NOT VERIFICATION; prove it works by running the actual thing, then show an evidence table. Use when: 'verify', 'is this done', 'did it work', 'test this change', before saying done/fixed/deployed, or before a commit/PR. BM: 'sahkan', 'dah siap ke', 'jalan ke tak', 'test perubahan ni', 'buktikan ia jalan', sebelum cakap siap/deploy."
+description: "Systematic verification before claiming a change is done. Iron rule — LINT IS NOT VERIFICATION; prove it works by running the actual thing, then show an evidence table. Use when: 'verify', 'is this done', 'did it work', 'test this change', before saying done/fixed/deployed, or before a commit/PR. BM: 'sahkan', 'dah siap ke belum', 'berjalan ke tidak', 'test perubahan ni', 'buktikan ia berjalan', sebelum mengatakan siap/deploy."
 ---
 
 # nova-verify — prove it, don't assume it

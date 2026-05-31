@@ -2,11 +2,12 @@
 
 **Vibe code without the disasters.**
 
-> 🇲🇾 **Ringkasan BM:** ALESA NOVA Basic = lapisan disiplin **mekanikal** untuk coding-AI. Pagar
-> (gate) yang *bertindak* pada saat risiko — sekat secret bocor & tetapan tak-selamat, auto-backup
-> sebelum edit, dan ingatkan annotation — bukan sekadar peringatan yang boleh diabai. Tambah kaedah
-> kerja ringkas: baca-sebelum-tulis · backup-sebelum-ubah · sahkan-selepas-ubah · "siap" mesti ada
-> bukti. (Edisi percuma untuk pembina solo; Compliance/team = edisi berlesen.)
+> 🇲🇾 **Ringkasan BM:** ALESA NOVA Basic ialah lapisan disiplin **automatik** untuk AI coding.
+> Pagar (gate) yang benar-benar *bertindak* pada saat berisiko — menyekat secret bocor dan tetapan
+> tidak selamat, membuat backup dengan sendiri sebelum edit, serta mengingatkan annotation — bukan
+> sekadar peringatan yang boleh diabaikan. Disertakan juga kaedah kerja ringkas: baca sebelum tulis ·
+> backup sebelum ubah · sahkan selepas ubah · "siap" mesti ada bukti. (Edisi percuma untuk pembina
+> solo; Compliance/team ialah edisi berlesen.)
 
 
 AI coding agents are fast — and that speed is exactly how people leak API keys, ship

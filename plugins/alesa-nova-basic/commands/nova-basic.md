@@ -1,5 +1,5 @@
 ---
-description: "Show what ALESA NOVA Basic is protecting you from and how to use it · Tunjuk apa ALESA NOVA Basic lindungi + cara guna."
+description: "Show what ALESA NOVA Basic is protecting you from and how to use it · Tunjukkan apa yang dilindungi oleh ALESA NOVA Basic dan cara menggunakannya."
 ---
 
 # ALESA NOVA Basic
@@ -28,22 +28,22 @@ Cross-model review · Compliance (PDPA / ISO 27001) audit suite · team/agency m
 
 # 🇲🇾 ALESA NOVA Basic
 
-Anda ada **ALESA NOVA Basic** aktif — coding-AI berdisiplin untuk pembina solo. Ini yang sedang
+**ALESA NOVA Basic** kini aktif — AI coding yang berdisiplin untuk pembina solo. Ini yang sedang
 berjalan untuk anda.
 
-## Pagar keselamatan mekanikal (jalan automatik)
-- **secret-leak gate** — sekat API key / token / DB-password / private key sebenar daripada masuk ke fail client-exposed atau commit. *(sekat secara default)*
-- **insecure-default gate** — sekat RLS-off, TLS-verify-off, wildcard CORS + credentials, `DEBUG` dalam prod. *(sekat secara default)*
-- **backup-before-edit** — auto-simpan salinan `.bak.auto` sebelum mana-mana fail sedia ada diubah.
-- **change-annotation** — ingatkan nota `// [CHANGE] what · why · verify` pada edit code.
+## Pagar keselamatan automatik (berjalan dengan sendiri)
+- **secret-leak gate** — menyekat API key / token / DB password / private key sebenar daripada masuk ke fail yang terdedah kepada client atau ke dalam commit. *(menyekat secara lalai)*
+- **insecure-default gate** — menyekat RLS dimatikan, TLS-verify dimatikan, wildcard CORS dengan credentials, dan `DEBUG` dalam env prod. *(menyekat secara lalai)*
+- **backup-before-edit** — membuat backup salinan `.bak.auto` dengan sendiri sebelum mana-mana fail sedia ada diubah.
+- **change-annotation** — mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod.
 
-Tukar gate ke amaran-sahaja semasa belajar: `export NOVA_SECRET_GATE_MODE=warn` · `export NOVA_INSECURE_GATE_MODE=warn`
+Tukarkan gate kepada mod amaran sahaja sementara belajar: `export NOVA_SECRET_GATE_MODE=warn` · `export NOVA_INSECURE_GATE_MODE=warn`
 
 ## Kaedah kerja
-1. **Baca sebelum tulis** · 2. **Backup sebelum ubah** (hook buat sendiri) · 3. **Sahkan selepas ubah** — buktikan ia jalan, lint bukan pengesahan (guna `/nova-verify`) · 4. **Rancang kerja besar dulu** (`/nova-brainstorm`) · 5. **"Siap" berasaskan bukti** — tiada "siap" tanpa probe.
+1. **Baca dahulu sebelum menulis** · 2. **Backup dahulu sebelum mengubah** (dibuat oleh hook) · 3. **Sahkan selepas mengubah** — buktikan ia benar-benar berjalan; lint bukan pengesahan (guna `/nova-verify`) · 4. **Rancang kerja besar terlebih dahulu** (`/nova-brainstorm`) · 5. **"Siap" mesti berasaskan bukti** — tiada "siap" tanpa probe.
 
 ## Skill
-`/nova-verify` — pengesahan sistematik + jadual bukti · `/nova-brainstorm` — pintu reka-bentuk-sebelum-bina.
+`/nova-verify` — pengesahan sistematik + jadual bukti · `/nova-brainstorm` — pagar reka bentuk sebelum bina.
 
 ## Naik taraf daripada Basic
-Review silang-model · suite audit Compliance (PDPA / ISO 27001) · multi-tenant pasukan/agensi · pengawasan masa-nyata → **hello@alesa.my** · **https://alesa.my**
+Review silang model · suite audit Compliance (PDPA / ISO 27001) · multi-tenant untuk pasukan/agensi · pengawasan masa nyata → **hello@alesa.my** · **https://alesa.my**

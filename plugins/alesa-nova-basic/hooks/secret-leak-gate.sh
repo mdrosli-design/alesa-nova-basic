@@ -65,11 +65,11 @@ FIX (no human-review needed — just don't ship the secret):
 
 Override (only if you are certain it is safe):  NOVA_SECRET_GATE_MODE=warn  (per-command env)
 
-🇲🇾 KENAPA DISEKAT: secret/kredential sebenar hampir masuk ke code CLIENT-EXPOSED atau deploy bundle.
-   Ini punca #1 app vibe-coded bocor (API key dalam client JS / service-role key terdedah).
-   FIX: pindah secret ke .env server-side (gitignore) · JANGAN hardcode dalam src/public/dist ·
-        client baca config PUBLIC sahaja (pk_* / *_ANON_KEY) — itu dibenarkan.
-   Override (kalau pasti selamat): NOVA_SECRET_GATE_MODE=warn
+🇲🇾 KENAPA DISEKAT: kunci/secret sebenar akan tertanam dalam kod yang terdedah kepada client atau dalam commit.
+   Inilah punca #1 app vibe-coded bocor (API key dalam client JS / service-role key terdedah).
+   CARA BETUL: simpan secret dalam fail .env di server (gitignore) — jangan hardcode dalam src/public/dist.
+        Dalam kod client, baca config PUBLIC sahaja (pk_* / *_ANON_KEY) — itu dibenarkan.
+   Override (hanya jika anda pasti ia selamat): NOVA_SECRET_GATE_MODE=warn
 ═══════════════════════════════════════════════════════════════════════════
 EOF
   exit 2

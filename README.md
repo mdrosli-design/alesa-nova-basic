@@ -22,6 +22,16 @@ secrets, insecure defaults, overwritten work, and "done" claims that were never 
 Plus a working method (3 Laws · evidence-based "done" · untrusted-until-proven) and two skills —
 `/nova-verify` (systematic verification + evidence table) and `/nova-brainstorm` (design-before-build).
 
+## Why ALESA NOVA (what makes it different)
+
+Most AI-coding helpers *advise* — they suggest, warn, or wait for you to switch on a "safe mode".
+ALESA NOVA **acts**:
+
+- **Mechanical, not advisory** — the gates *block* a risky action (exit 2); they don't just print a warning you can scroll past.
+- **Always-on, nothing to remember** — once installed, the guards run automatically on every action, every session. There's no "careful mode" to enable; protection never depends on you remembering.
+- **Built for the moment you don't know better** — for solo builders and people learning to code with AI, safety is on by default, not opt-in.
+- **A real compliance path** — the licensed editions cover Malaysian PDPA, ISO/IEC 27001, and MAMPU-aligned work: discipline that holds up for agency, regulated, and banking-tier delivery — not just generic productivity.
+
 ## Install
 
 ```
@@ -65,6 +75,16 @@ dan kerja yang didakwa "siap" sedangkan tidak pernah disahkan.
 Disertakan juga satu kaedah kerja (3 Laws · "siap" mesti berasaskan bukti · jangan percaya
 sebelum disahkan) dan dua skill — `/nova-verify` (pengesahan sistematik + jadual bukti) dan
 `/nova-brainstorm` (reka bentuk sebelum bina).
+
+## Kenapa ALESA NOVA (apa yang membezakannya)
+
+Kebanyakan alat bantu AI coding sekadar *menasihati* — ia mencadang, memberi amaran, atau menunggu
+anda hidupkan "mod selamat". ALESA NOVA pula **bertindak**:
+
+- **Mekanikal, bukan sekadar nasihat** — gate-nya *menyekat* tindakan berisiko (exit 2), bukan sekadar mencetak amaran yang boleh anda abaikan.
+- **Sentiasa aktif, tiada apa-apa untuk diingat** — sebaik dipasang, guard berjalan automatik pada setiap tindakan, setiap sesi. Tiada "mod berhati-hati" untuk dihidupkan; perlindungan tidak pernah bergantung pada ingatan anda.
+- **Direka untuk saat anda belum tahu** — untuk pembina solo dan mereka yang baru belajar coding dengan AI, keselamatan hidup secara lalai, bukan atas pilihan.
+- **Laluan compliance yang sebenar** — edisi berlesen meliputi PDPA Malaysia, ISO/IEC 27001, dan kerja sejajar MAMPU: disiplin yang tahan untuk penyampaian agensi, regulated, dan banking-tier — bukan sekadar produktiviti umum.
 
 ## Pasang (Install)
 

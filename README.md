@@ -22,7 +22,7 @@ Plus a working method (3 Laws · evidence-based "done" · untrusted-until-proven
 ## Install
 
 ```
-/plugin marketplace add mdrosli-design/alesa-nova-marketplace
+/plugin marketplace add mdrosli-design/alesa-nova-basic
 /plugin install alesa-nova-basic@alesa-nova
 ```
 Restart Claude Code, then run `/nova-basic` to see what's active.

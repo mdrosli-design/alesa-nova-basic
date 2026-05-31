@@ -1,0 +1,24 @@
+ALESA NOVA Basic — License
+Copyright (c) ALESA IT Services (https://alesa.my). All rights reserved.
+
+FREE FOR INDIVIDUAL USE.
+You may install and use ALESA NOVA Basic, free of charge, for your own personal or internal
+software development, including in commercial projects you build for yourself or your employer.
+
+PERMITTED
+- Install, run, and modify the hooks/skills locally for your own use.
+- Use it in your own commercial work product (the apps/code you build).
+
+NOT PERMITTED (without written permission from ALESA IT Services)
+- Reselling, sublicensing, or charging others for ALESA NOVA Basic itself.
+- Redistributing it under a different name, or removing ALESA NOVA attribution (no rebranding).
+- Repackaging it as, or to seed, a competing framework or product.
+
+NO WARRANTY
+ALESA NOVA Basic is provided "AS IS", without warranty of any kind. The guardrails reduce common
+risks but are not a guarantee of security or correctness; you remain responsible for reviewing
+and verifying your code. To the maximum extent permitted by law, ALESA IT Services is not liable
+for any damages arising from its use.
+
+For commercial licensing, the Compliance / team / supervision editions, or any use beyond the
+above: hello@alesa.my

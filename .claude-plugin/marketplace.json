@@ -1,0 +1,23 @@
+{
+  "name": "alesa-nova",
+  "owner": {
+    "name": "ALESA IT Services",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "metadata": {
+    "edition": "public-free",
+    "homepage": "https://alesa.my/novaplugin",
+    "note": "Public marketplace — free Basic edition only. Compliance/Banking editions are licensed (hello@alesa.my)."
+  },
+  "plugins": [
+    {
+      "name": "alesa-nova-basic",
+      "source": "./plugins/alesa-nova-basic",
+      "description": "ALESA NOVA Basic — free, disciplined AI coding for solo builders: mechanical guardrails that block leaked secrets & insecure defaults, auto-backup before edits, and verify-before-done.",
+      "version": "1.0.0",
+      "category": "Free · AI coding security & discipline",
+      "strict": true
+    }
+  ]
+}

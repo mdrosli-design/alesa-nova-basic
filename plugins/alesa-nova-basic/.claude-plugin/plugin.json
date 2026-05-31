@@ -1,0 +1,23 @@
+{
+  "name": "alesa-nova-basic",
+  "version": "1.0.0",
+  "description": "ALESA NOVA Basic — disciplined AI coding for solo builders. Mechanical guardrails that BLOCK the classic disasters before they ship: leaked secrets, insecure defaults (RLS off, wildcard CORS, TLS verify off), unbacked edits, and 'done' claims with no proof. Vibe code without the disasters. Compliance (PDPA / ISO 27001), team / agency, and real-time supervision live in the paid editions — hello@alesa.my",
+  "author": {
+    "name": "ALESA IT Services",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "see LICENSE.txt",
+  "homepage": "https://alesa.my/novaplugin",
+  "repository": "https://github.com/mdrosli-design/alesa-nova-marketplace",
+  "keywords": [
+    "ai-coding",
+    "security",
+    "guardrails",
+    "secret-scanning",
+    "verification",
+    "vibe-coding",
+    "engineering-discipline",
+    "pre-tool-use-hooks"
+  ]
+}

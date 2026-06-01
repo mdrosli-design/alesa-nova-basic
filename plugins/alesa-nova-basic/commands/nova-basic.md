@@ -19,7 +19,7 @@ Switch a gate to warn-only while learning: `export NOVA_SECRET_GATE_MODE=warn` �
 1. **Read before you write** · 2. **Back up before you change** (hook does it) · 3. **Verify after you change** — prove it works, lint is not verification (use `/nova-verify`) · 4. **Plan non-trivial work first** (`/nova-brainstorm`) · 5. **Evidence-based done** — no "done" without a probe.
 
 ## Skills
-`/nova-verify` — systematic verification + evidence table · `/nova-brainstorm` — design-before-build gate.
+`/nova-verify` — systematic verification + evidence table (completion gate) · `/nova-brainstorm` — design-before-build gate · `/nova-tdd` — test-first discipline (red → green → refactor).
 
 ## Growing past Basic
 Cross-model review · Compliance (PDPA / ISO 27001) audit suite · team/agency multi-tenant · real-time supervision → **hello@alesa.my** · **https://alesa.my**
@@ -43,7 +43,7 @@ Tukarkan gate kepada mod amaran sahaja sementara belajar: `export NOVA_SECRET_GA
 1. **Baca dahulu sebelum menulis** · 2. **Backup dahulu sebelum mengubah** (dibuat oleh hook) · 3. **Sahkan selepas mengubah** — buktikan ia benar-benar berjalan; lint bukan pengesahan (guna `/nova-verify`) · 4. **Rancang kerja besar terlebih dahulu** (`/nova-brainstorm`) · 5. **"Siap" mesti berasaskan bukti** — tiada "siap" tanpa probe.
 
 ## Skill
-`/nova-verify` — pengesahan sistematik + jadual bukti · `/nova-brainstorm` — pagar reka bentuk sebelum bina.
+`/nova-verify` — pengesahan sistematik + jadual bukti (pintu siap) · `/nova-brainstorm` — pagar reka bentuk sebelum bina · `/nova-tdd` — disiplin test-dahulu (red → green → refactor).
 
 ## Naik taraf daripada Basic
 Review silang model · suite audit Compliance (PDPA / ISO 27001) · multi-tenant untuk pasukan/agensi · pengawasan masa nyata → **hello@alesa.my** · **https://alesa.my**

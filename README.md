@@ -19,8 +19,9 @@ secrets, insecure defaults, overwritten work, and "done" claims that were never 
 | **backup-before-edit** | Auto-saves `<file>.bak.auto` before the agent edits an existing file. | "The AI overwrote my working code." |
 | **change-annotation** | Nudges a `// [CHANGE] what · why · verify` note on code edits. | Code nobody can understand later. |
 
-Plus a working method (3 Laws · evidence-based "done" · untrusted-until-proven) and two skills —
-`/nova-verify` (systematic verification + evidence table) and `/nova-brainstorm` (design-before-build).
+Plus a working method (3 Laws · evidence-based "done" · untrusted-until-proven) and three skills —
+`/nova-verify` (systematic verification + evidence table), `/nova-brainstorm` (design-before-build),
+and `/nova-tdd` (test-first discipline: red → green → refactor).
 
 ## Why ALESA NOVA (what makes it different)
 
@@ -73,8 +74,8 @@ dan kerja yang didakwa "siap" sedangkan tidak pernah disahkan.
 | **change-annotation** | Mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod. | Kod yang tiada siapa boleh fahami kemudian hari. |
 
 Disertakan juga satu kaedah kerja (3 Laws · "siap" mesti berasaskan bukti · jangan percaya
-sebelum disahkan) dan dua skill — `/nova-verify` (pengesahan sistematik + jadual bukti) dan
-`/nova-brainstorm` (reka bentuk sebelum bina).
+sebelum disahkan) dan tiga skill — `/nova-verify` (pengesahan sistematik + jadual bukti),
+`/nova-brainstorm` (reka bentuk sebelum bina), dan `/nova-tdd` (disiplin test-dahulu: red → green → refactor).
 
 ## Kenapa ALESA NOVA (apa yang membezakannya)
 

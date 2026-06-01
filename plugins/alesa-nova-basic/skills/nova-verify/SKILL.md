@@ -5,9 +5,13 @@ description: "Systematic verification before claiming a change is done. Iron rul
 
 # nova-verify — prove it, don't assume it
 
-A change is **not done** until you have exercised the same thing the user cares about and shown
-proof. Compiling, clearing a cache, or a green lint says nothing about whether the behaviour is
-correct. This skill is the practical form of "evidence-based done".
+> 🇲🇾 **Ringkasan:** Ini PINTU siap (gate), bukan cadangan. Jangan lapor "siap / fixed / deployed"
+> sehingga setiap probe HIJAU **dan** kerja ditutup kemas — sudah commit, ada annotation, takde yang separuh siap.
+
+**This is a completion GATE, not a suggestion you may skip.** A change is **not done** until you have
+exercised the same thing the user cares about and shown proof. Compiling, clearing a cache, or a green
+lint says nothing about whether the behaviour is correct. This skill is the practical form of
+"evidence-based done".
 
 ## Method
 
@@ -29,11 +33,20 @@ correct. This skill is the practical form of "evidence-based done".
    | 1 | `curl /api/x` → status | 200 | 200 | pass |
    | 2 | unauth POST → status | 401 | 401 | pass |
 
-5. **Only claim "done" if every row is green.** Any red → fix → re-run → re-table. Never spin a
-   failed probe as success.
+5. **The gate: only report "done" if EVERY row is green.** Any red → fix → re-run → re-table.
+   Never spin a failed probe as success. A red — or skipped — probe means **still NOT done**.
+
+## Finish cleanly (the other half of "done")
+Green probes alone aren't "done" if the work is left messy. Before you report complete, confirm:
+- [ ] **Verified** — evidence table all green (above)
+- [ ] **Committed** — changes committed, nothing left dangling uncommitted
+- [ ] **Annotated** — a `// [CHANGE] what · why · verify` remark where the code changed
+- [ ] **No half-done** — no stub / TODO / commented-out / unrelated edit left behind
+- [ ] **Stated** — what you did NOT check, and any residual risk
 
 ## Honesty rules
 - Don't say *done / fixed / works / deployed / verified* without a probe behind it.
-- State confidence and name what you did **not** check. Never claim 100%.
+- State confidence and name what you did **not** check. **Never claim 100%.**
 - If a full test is risky (e.g. on production), run a safe read-only equivalent and state the
   residual risk explicitly.
+- 🇲🇾 Jangan lapor siap selagi ada probe merah atau kerja separuh siap — pintu ini tak boleh dilangkau.

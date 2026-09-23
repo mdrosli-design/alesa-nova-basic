@@ -22,10 +22,30 @@ MODE="${NOVA_SECRET_GATE_MODE:-enforce}"
 LOG="$HOME/.nova-basic/secret-leak-gate.log"; mkdir -p "$HOME/.nova-basic"
 
 INPUT="$(cat 2>/dev/null || echo '{}')"
-TOOL=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null || echo "")
-CMD=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null || echo "")
-FP=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null || echo "")
-NEW=$(echo "$INPUT" | jq -r '.tool_input.content // .tool_input.new_string // ""' 2>/dev/null || echo "")
+
+# [CHANGE 2026-09-24] what: dependency-resilient JSON extraction (python3 → jq) + raw fail-closed net.
+#   why: hooks required `jq`, which macOS does NOT ship by default — so on the target machine (solo-builder
+#        Mac with no jq) the gate parsed nothing and FAILED OPEN silently (a real AWS key leaked, verified
+#        exit 0). A mechanical guard that silently does nothing is worse than none.
+#   verify: with no jq AND no python3, a secret in raw input still BLOCKS (raw-scan below); with either present, normal.
+_j() {  # _j <dot.path> — extract a JSON string field. python3 first (common on macOS), then jq, else empty.
+  if command -v python3 >/dev/null 2>&1; then
+    printf '%s' "$INPUT" | python3 -c '
+import sys, json
+try: d = json.load(sys.stdin)
+except Exception: print(""); sys.exit()
+cur = d
+for k in sys.argv[1].split("."):
+    cur = cur.get(k) if isinstance(cur, dict) else None
+print(cur if isinstance(cur, str) else "")' "$1" 2>/dev/null && return
+  fi
+  command -v jq >/dev/null 2>&1 && printf '%s' "$INPUT" | jq -r ".$1 // \"\"" 2>/dev/null && return
+  printf ''
+}
+TOOL=$(_j tool_name)
+CMD=$(_j tool_input.command)
+FP=$(_j tool_input.file_path)
+NEW=$(_j tool_input.content); [[ -z "$NEW" ]] && NEW=$(_j tool_input.new_string)
 
 # ── High-confidence REAL secret signatures (provider-specific + structural) ─────────────────────────
 SECRET_RE='AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|sk_live_[0-9A-Za-z]{16,}|rk_live_[0-9A-Za-z]{16,}|sk-[A-Za-z0-9]{20,}|gh[pousr]_[0-9A-Za-z]{30,}|github_pat_[0-9A-Za-z_]{40,}|glpat-[0-9A-Za-z_-]{20,}|xox[baprs]-[0-9A-Za-z-]{10,}|SG\.[0-9A-Za-z_-]{20,}\.[0-9A-Za-z_-]{20,}|(mongodb(\+srv)?|redis|rediss|postgres(ql)?|mysql|amqps?)://[^[:space:]:@/]+:[^[:space:]@/]+@|-----BEGIN [A-Z ]*PRIVATE KEY-----|eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}'
@@ -74,6 +94,16 @@ Override (only if you are certain it is safe):  NOVA_SECRET_GATE_MODE=warn  (per
 EOF
   exit 2
 }
+
+# [CHANGE 2026-09-24] Raw fail-CLOSED net: if NEITHER python3 nor jq is available, structured extraction
+#   yields empty ($TOOL blank while raw input carries data). Rather than fail open, scan the raw JSON for a
+#   real secret — so a hardcoded key still can't slip through silently on a bare machine. verify: no-parser + AWS key → exit 2.
+if [[ -z "$TOOL" && "${#INPUT}" -gt 20 ]]; then
+  if echo "$INPUT" | grep -qiE "$SECRET_RE"; then
+    is_allowed_value "$INPUT" || block "secret in tool input (no JSON parser present — raw fail-closed scan)" "$INPUT"
+  fi
+  exit 0
+fi
 
 if [[ "$TOOL" == "Write" || "$TOOL" == "Edit" || "$TOOL" == "NotebookEdit" ]] && [[ -n "$NEW" ]]; then
   # ── 0) Framework PUBLIC-prefixed env var carrying a REAL secret — bundled to client by the build

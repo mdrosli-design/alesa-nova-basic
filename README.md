@@ -107,4 +107,4 @@ masa nyata.
 Pelesenan & edisi lebih tinggi: **hello@alesa.my** · **https://alesa.my**
 
 ---
-© ALESA IT Services. Edisi Basic percuma untuk kegunaan individu — lihat LICENSE.txt plugin.
+© Novastack System Sdn. Bhd.. Edisi Basic percuma untuk kegunaan individu — lihat LICENSE.txt plugin.

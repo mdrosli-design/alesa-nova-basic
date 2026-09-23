@@ -19,8 +19,23 @@ mkdir -p "$HOME/.nova-basic"
 [[ "${NOVA_BACKUP_SKIP:-0}" == "1" ]] && { echo "[$(date '+%Y-%m-%d %H:%M:%S')] SKIP env_skip" >> "$LOG"; exit 0; }
 
 INPUT="$(cat 2>/dev/null || echo '{}')"
-TOOL=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null)
-FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null)
+# [CHANGE 2026-09-24] what: python3-first JSON extraction (jq not shipped on macOS → backup silently never ran). why/verify: see secret-leak-gate.
+_j() {
+  if command -v python3 >/dev/null 2>&1; then
+    printf '%s' "$INPUT" | python3 -c '
+import sys, json
+try: d = json.load(sys.stdin)
+except Exception: print(""); sys.exit()
+cur = d
+for k in sys.argv[1].split("."):
+    cur = cur.get(k) if isinstance(cur, dict) else None
+print(cur if isinstance(cur, str) else "")' "$1" 2>/dev/null && return
+  fi
+  command -v jq >/dev/null 2>&1 && printf '%s' "$INPUT" | jq -r ".$1 // \"\"" 2>/dev/null && return
+  printf ''
+}
+TOOL=$(_j tool_name)
+FILE_PATH=$(_j tool_input.file_path)
 
 case "$TOOL" in
   Edit|Write|NotebookEdit) : ;;

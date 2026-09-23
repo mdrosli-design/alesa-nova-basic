@@ -19,10 +19,26 @@ LEDGER="${HOME}/.nova-basic/change-annotation-ledger.jsonl"
 mkdir -p "${HOME}/.nova-basic"
 
 INPUT="$(cat 2>/dev/null || echo '{}')"
-TOOL=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null || echo "")
+
+# [CHANGE 2026-09-24] what: python3-first JSON extraction (jq not shipped on macOS → nudge silently never ran). why/verify: see secret-leak-gate.
+_j() {
+  if command -v python3 >/dev/null 2>&1; then
+    printf '%s' "$INPUT" | python3 -c '
+import sys, json
+try: d = json.load(sys.stdin)
+except Exception: print(""); sys.exit()
+cur = d
+for k in sys.argv[1].split("."):
+    cur = cur.get(k) if isinstance(cur, dict) else None
+print(cur if isinstance(cur, str) else "")' "$1" 2>/dev/null && return
+  fi
+  command -v jq >/dev/null 2>&1 && printf '%s' "$INPUT" | jq -r ".$1 // \"\"" 2>/dev/null && return
+  printf ''
+}
+TOOL=$(_j tool_name)
 [[ "$TOOL" != "Edit" && "$TOOL" != "Write" ]] && exit 0
 
-FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null || echo "")
+FILE=$(_j tool_input.file_path)
 [[ -z "$FILE" ]] && exit 0
 
 # Only code files where comments are possible. Skip docs/data/config-without-comments.
@@ -33,9 +49,9 @@ esac
 
 # The text this tool call wrote (Edit → new_string · Write → content)
 if [[ "$TOOL" == "Edit" ]]; then
-  PAYLOAD=$(echo "$INPUT" | jq -r '.tool_input.new_string // ""' 2>/dev/null || echo "")
+  PAYLOAD=$(_j tool_input.new_string)
 else
-  PAYLOAD=$(echo "$INPUT" | jq -r '.tool_input.content // ""' 2>/dev/null || echo "")
+  PAYLOAD=$(_j tool_input.content)
 fi
 
 # Skip trivial edits — fewer than 2 non-blank lines of change (renames, one-char tweaks)

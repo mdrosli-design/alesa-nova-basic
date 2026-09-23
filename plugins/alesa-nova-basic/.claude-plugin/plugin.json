@@ -1,9 +1,9 @@
 {
   "name": "alesa-nova-basic",
-  "version": "1.0.0",
-  "description": "ALESA NOVA Basic — disciplined AI coding for solo builders. Mechanical guardrails that BLOCK the classic disasters before they ship: leaked secrets, insecure defaults (RLS off, wildcard CORS, TLS verify off), unbacked edits, and 'done' claims with no proof. Vibe code without the disasters. Compliance (PDPA / ISO 27001), team / agency, and real-time supervision live in the paid editions — hello@alesa.my",
+  "version": "1.1.0",
+  "description": "ALESA NOVA Basic — disciplined AI coding for solo builders. Mechanical guardrails that BLOCK the classic disasters before they ship: leaked secrets, insecure defaults (RLS off, wildcard CORS, TLS verify off), catastrophic commands (rm -rf / · DROP DATABASE · force-push · curl|bash), unbacked edits, and 'done' claims with no proof. Vibe code without the disasters. Works out of the box — no jq or extra tools needed. Compliance (PDPA / ISO 27001), team / agency, and real-time supervision live in the paid editions — hello@alesa.my",
   "author": {
-    "name": "ALESA IT Services",
+    "name": "Novastack System Sdn. Bhd.",
     "email": "hello@alesa.my",
     "url": "https://alesa.my"
   },

@@ -46,4 +46,4 @@ Basic is complete for a solo developer — you upgrade by **need**, not because 
 Licensing & editions: **hello@alesa.my** · **https://alesa.my**
 
 ---
-© ALESA IT Services. Free for individual use — see [LICENSE.txt](LICENSE.txt).
+© Novastack System Sdn. Bhd.. Free for individual use — see [LICENSE.txt](LICENSE.txt).

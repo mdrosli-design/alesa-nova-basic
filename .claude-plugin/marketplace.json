@@ -1,7 +1,7 @@
 {
   "name": "alesa-nova",
   "owner": {
-    "name": "ALESA IT Services",
+    "name": "Novastack System Sdn. Bhd.",
     "email": "hello@alesa.my",
     "url": "https://alesa.my"
   },
@@ -14,8 +14,8 @@
     {
       "name": "alesa-nova-basic",
       "source": "./plugins/alesa-nova-basic",
-      "description": "ALESA NOVA Basic — free, disciplined AI coding for solo builders: mechanical guardrails that block leaked secrets & insecure defaults, auto-backup before edits, and verify-before-done.",
-      "version": "1.0.0",
+      "description": "ALESA NOVA Basic — free, disciplined AI coding for solo builders: mechanical guardrails that block leaked secrets, insecure defaults & catastrophic commands (rm -rf / · DROP DATABASE · force-push), auto-backup before edits, and verify-before-done. Works with no extra tools (no jq needed).",
+      "version": "1.1.0",
       "category": "Free · AI coding security & discipline",
       "strict": true
     }

@@ -23,9 +23,27 @@ MODE="${NOVA_INSECURE_GATE_MODE:-enforce}"
 LOG="$HOME/.nova-basic/insecure-default-gate.log"; mkdir -p "$HOME/.nova-basic"
 
 INPUT="$(cat 2>/dev/null || echo '{}')"
-TOOL=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null || echo "")
-FP=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null || echo "")
-NEW=$(echo "$INPUT" | jq -r '.tool_input.content // .tool_input.new_string // ""' 2>/dev/null || echo "")
+
+# [CHANGE 2026-09-24] what: dependency-resilient JSON extraction (python3 → jq). why: `jq` is not shipped on
+#   macOS by default, so on a bare target machine this gate parsed nothing and FAILED OPEN silently (a real
+#   RLS-disable slipped through). python3 (present on most dev macs via CLT) is now the primary parser.
+_j() {  # _j <dot.path> — python3 first, then jq, else empty.
+  if command -v python3 >/dev/null 2>&1; then
+    printf '%s' "$INPUT" | python3 -c '
+import sys, json
+try: d = json.load(sys.stdin)
+except Exception: print(""); sys.exit()
+cur = d
+for k in sys.argv[1].split("."):
+    cur = cur.get(k) if isinstance(cur, dict) else None
+print(cur if isinstance(cur, str) else "")' "$1" 2>/dev/null && return
+  fi
+  command -v jq >/dev/null 2>&1 && printf '%s' "$INPUT" | jq -r ".$1 // \"\"" 2>/dev/null && return
+  printf ''
+}
+TOOL=$(_j tool_name)
+FP=$(_j tool_input.file_path)
+NEW=$(_j tool_input.content); [[ -z "$NEW" ]] && NEW=$(_j tool_input.new_string)
 
 [[ "$TOOL" == "Write" || "$TOOL" == "Edit" || "$TOOL" == "NotebookEdit" ]] || exit 0
 [[ -z "$NEW" ]] && exit 0

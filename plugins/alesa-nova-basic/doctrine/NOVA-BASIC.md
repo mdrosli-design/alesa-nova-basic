@@ -75,4 +75,4 @@ Licensing & editions: **hello@alesa.my** · **https://alesa.my**
 
 ---
 
-*ALESA NOVA Basic · © ALESA IT Services · free for individual use (see LICENSE.txt).*
+*ALESA NOVA Basic · © Novastack System Sdn. Bhd. · free for individual use (see LICENSE.txt).*

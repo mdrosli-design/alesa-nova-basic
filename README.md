@@ -16,6 +16,7 @@ secrets, insecure defaults, overwritten work, and "done" claims that were never 
 |-------|--------------|----------------------|
 | **secret-leak gate** | Blocks a real API key / token / DB password / private key from entering a client-exposed file or a commit. | Pushing an API key to a public repo. |
 | **insecure-default gate** | Blocks RLS-off, TLS-verify-off, wildcard CORS + credentials, `DEBUG` in a prod env. | Wide-open databases & security holes. |
+| **dangerous-command gate** | Blocks catastrophic Bash — `rm -rf /`, `DROP DATABASE`, `git push --force`, `curl \| bash`. | "The AI deleted my files / dropped my database." |
 | **backup-before-edit** | Auto-saves `<file>.bak.auto` before the agent edits an existing file. | "The AI overwrote my working code." |
 | **change-annotation** | Nudges a `// [CHANGE] what · why · verify` note on code edits. | Code nobody can understand later. |
 
@@ -70,6 +71,7 @@ dan kerja yang didakwa "siap" sedangkan tidak pernah disahkan.
 |-------|--------------|----------------------|
 | **secret-leak gate** | Menyekat API key / token / DB password / private key sebenar daripada masuk ke fail yang terdedah kepada client (client-exposed) atau ke dalam commit. | API key tertolak ke repo awam. |
 | **insecure-default gate** | Menyekat RLS dimatikan, TLS-verify dimatikan, wildcard CORS dengan credentials, dan `DEBUG` dalam env prod. | Database terdedah luas dan lubang keselamatan. |
+| **dangerous-command gate** | Menyekat arahan Bash memusnahkan — `rm -rf /`, `DROP DATABASE`, `git push --force`, `curl \| bash`. | "AI padam fail aku / drop database aku." |
 | **backup-before-edit** | Membuat backup `<file>.bak.auto` dengan sendiri sebelum agent mengedit fail sedia ada. | "AI tertimpa-ganti kod aku yang dah berjalan." |
 | **change-annotation** | Mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod. | Kod yang tiada siapa boleh fahami kemudian hari. |
 

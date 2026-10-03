@@ -1,0 +1,33 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hooks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Manifests are valid JSON
+        run: |
+          python3 -c "import json; [json.load(open(f)) for f in ['.claude-plugin/marketplace.json', 'plugins/alesa-nova-basic/.claude-plugin/plugin.json', 'plugins/alesa-nova-basic/hooks/hooks.json']]"
+
+      - name: Shell syntax
+        run: |
+          for f in plugins/alesa-nova-basic/hooks/*.sh plugins/alesa-nova-basic/scripts/*.sh plugins/alesa-nova-basic/tests/*.sh; do bash -n "$f"; done
+
+      - name: Hook regression suite (default bash)
+        run: bash plugins/alesa-nova-basic/tests/run-tests.sh
+
+      - name: Hook regression suite (macOS /bin/bash 3.2)
+        if: runner.os == 'macOS'
+        run: /bin/bash plugins/alesa-nova-basic/tests/run-tests.sh

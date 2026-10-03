@@ -1,49 +1,45 @@
 ---
-description: "Show what ALESA NOVA Basic is protecting you from and how to use it · Tunjukkan apa yang dilindungi oleh ALESA NOVA Basic dan cara menggunakannya."
+description: "Show what ALESA NOVA Basic is doing for you — guards, the 3 Laws, project continuity, lab tools — and how to use, restore, update and grow it. BM: apa yang ALESA NOVA Basic buat dan cara guna."
 ---
 
-# ALESA NOVA Basic
+Present the overview below to the user, in their language, as a short readable summary (tables welcome).
+Do not invent features that are not listed here.
 
-You have **ALESA NOVA Basic** active — disciplined AI coding for solo builders. Here's what's
-running for you. *(Bahasa Malaysia di bawah ↓)*
+# ALESA NOVA Basic — disciplined AI coding, free
 
-## Mechanical guardrails (run automatically)
-- **secret-leak gate** — blocks a real API key / token / DB-password / private key from entering a client-exposed file or a commit. *(blocks by default)*
-- **insecure-default gate** — blocks RLS-off, TLS-verify-off, wildcard CORS + credentials, `DEBUG` in prod. *(blocks by default)*
-- **backup-before-edit** — auto-saves a `.bak.auto` copy before any existing file is modified.
-- **change-annotation** — nudges a `// [CHANGE] what · why · verify` remark on code edits.
+**Guards (run automatically, block before damage):**
+| Guard | Stops |
+|---|---|
+| secret-leak | real keys/tokens (cloud, payment, git hosting, OpenAI, Anthropic, Hugging Face, Groq …) going into client code, a commit or a push — it scans the actual changes being committed (up to 500 new files / 1 MB per file / 8 MB; partial scans are reported) |
+| dangerous-command | mass deletes of system/home folders, DROP/TRUNCATE, force-push, `--no-verify`, piping downloads into a shell, and shared-machine hazards (docker prune of everything, reboot/shutdown, git reset --hard or git clean over uncommitted work) |
+| insecure-default | RLS off, open Firebase rules, TLS verification off, wildcard CORS with credentials, DEBUG in production, Jupyter open to the network without a token; warns on exposed model servers and Gradio public links |
+| backup-before-edit | copies files before the agent changes them (notebooks included; once per 5-minute burst; files over 20 MB skipped) to `~/.nova-basic/backups/` — outside your project, so backups never get committed |
 
-Switch a gate to warn-only while learning: `export NOVA_SECRET_GATE_MODE=warn` · `export NOVA_INSECURE_GATE_MODE=warn`
+**The 3 Laws (given to the agent every session):** read before you write · back up before you change ·
+verify after you change. The *verify-before-done* gate sends the agent back once when it says "done" after a
+code change without a passing check (needs python3). Code changes get a `[CHANGE] what · why · verify` note.
 
-## The working method
-1. **Read before you write** · 2. **Back up before you change** (hook does it) · 3. **Verify after you change** — prove it works, lint is not verification (use `/nova-verify`) · 4. **Plan non-trivial work first** (`/nova-brainstorm`) · 5. **Evidence-based done** — no "done" without a probe.
+**Project continuity:** `/nova-init` (brief + changelog + safe .gitignore) · `/nova-checkpoint` (save progress
+into the brief) · `/nova-resume` or `/nova-sambung` (continue from the brief). The brief is read automatically
+at the start of every session — on any machine, because it travels with the repository.
 
-## Skills
-`/nova-verify` — systematic verification + evidence table (completion gate) · `/nova-brainstorm` — design-before-build gate · `/nova-tdd` — test-first discipline (red → green → refactor).
+**Learning & labs:** output style **Coach** (`/config` → Output style) for learners · `/nova-report` — AI-use
+report for coursework disclosure · skills `/nova-verify`, `/nova-brainstorm`, `/nova-tdd`.
 
-## Growing past Basic
-Cross-model review · Compliance (PDPA / ISO 27001) audit suite · team/agency multi-tenant · real-time supervision → **hello@alesa.my** · **https://alesa.my**
+**Health & support:** `/nova-doctor` — health check, self-test of the guards on this machine, and a support
+report with no file contents or secrets (send it to hello@alesa.my for remote help).
 
----
+**Restore a backup:** `ls ~/.nova-basic/backups/<path to your file>.*` then
+`cp ~/.nova-basic/backups/<path>.<timestamp> <path>`.
 
-# 🇲🇾 ALESA NOVA Basic
+**Update:** `claude plugin marketplace update alesa-nova && claude plugin update alesa-nova-basic@alesa-nova`
+(installs from the Claude directory update automatically).
 
-**ALESA NOVA Basic** kini aktif — AI coding yang berdisiplin untuk pembina solo. Ini yang sedang
-berjalan untuk anda.
+**Your data:** everything stays on your machine in `~/.nova-basic` (logs, backups). Nothing is sent anywhere.
 
-## Pagar keselamatan automatik (berjalan dengan sendiri)
-- **secret-leak gate** — menyekat API key / token / DB password / private key sebenar daripada masuk ke fail yang terdedah kepada client atau ke dalam commit. *(menyekat secara lalai)*
-- **insecure-default gate** — menyekat RLS dimatikan, TLS-verify dimatikan, wildcard CORS dengan credentials, dan `DEBUG` dalam env prod. *(menyekat secara lalai)*
-- **backup-before-edit** — membuat backup salinan `.bak.auto` dengan sendiri sebelum mana-mana fail sedia ada diubah.
-- **change-annotation** — mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod.
+**Language:** English by default; Bahasa Malaysia with `NOVA_LANG=ms`.
 
-Tukarkan gate kepada mod amaran sahaja sementara belajar: `export NOVA_SECRET_GATE_MODE=warn` · `export NOVA_INSECURE_GATE_MODE=warn`
-
-## Kaedah kerja
-1. **Baca dahulu sebelum menulis** · 2. **Backup dahulu sebelum mengubah** (dibuat oleh hook) · 3. **Sahkan selepas mengubah** — buktikan ia benar-benar berjalan; lint bukan pengesahan (guna `/nova-verify`) · 4. **Rancang kerja besar terlebih dahulu** (`/nova-brainstorm`) · 5. **"Siap" mesti berasaskan bukti** — tiada "siap" tanpa probe.
-
-## Skill
-`/nova-verify` — pengesahan sistematik + jadual bukti (pintu siap) · `/nova-brainstorm` — pagar reka bentuk sebelum bina · `/nova-tdd` — disiplin test-dahulu (red → green → refactor).
-
-## Naik taraf daripada Basic
-Review silang model · suite audit Compliance (PDPA / ISO 27001) · multi-tenant untuk pasukan/agensi · pengawasan masa nyata → **hello@alesa.my** · **https://alesa.my**
+**Growing past Basic:** licensed ALESA NOVA editions, for teams, agencies and regulated work, add an
+independent second-AI review before shipping, a blueprint ledger so nothing in a spec is silently left out,
+enforced project lifecycle, compliance and audit tooling, a team console, real-time supervision and on-prem
+deployment. → https://alesa.my · hello@alesa.my

@@ -5,10 +5,6 @@ description: "Test-driven development discipline — write the failing test FIRS
 
 # nova-tdd — test first, then code
 
-> 🇲🇾 **Ringkasan:** Tulis ujian (test) yang GAGAL dahulu → tulis kod minimum supaya ia lulus →
-> kemas (refactor). Untuk bug: tulis ujian yang menghasilkan semula bug itu dahulu, baru baiki.
-> Lebih yakin, kurang debug.
-
 Writing the test first forces you to define *what "correct" means* before you build — so you code
 toward a target, not into a fog. It's the cheapest confidence you can buy: a safety net that catches
 regressions the moment they happen, and far less debugging later.

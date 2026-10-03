@@ -1,69 +1,56 @@
 #!/usr/bin/env bash
-# pre-edit-auto-backup.sh — PreToolUse(Edit|Write|NotebookEdit) hook · ALESA NOVA Basic
+# pre-edit-auto-backup.sh — PreToolUse(Edit|Write|MultiEdit|NotebookEdit) · ALESA NOVA Basic
 #
-# Law 1 — BACKUP BEFORE EVERY EDIT. Auto-creates `<file>.bak.auto.<ts>` before the agent's
-# Edit/Write/NotebookEdit modifies an existing file, so you can always roll back a bad change.
-# Counters the #1 vibe-coding regret: an AI overwrote my working code and I can't get it back.
+# Law 1 — back up before you change. Copies an existing file before the agent modifies it, so a bad edit
+# can always be undone. Notebooks (.ipynb) included.
 #
-# Mode env: NOVA_BACKUP_MODE = warn (default, creates backup + logs) |
-#           enforce (blocks the edit if the backup can't be written) | off
-# Skip:     NOVA_BACKUP_SKIP=1 (one-shot bypass)
-# Log:      ~/.nova-basic/pre-edit-backup.log
-# Exit:     0 = ok (backup made / nothing to back up) · 2 = BLOCK (enforce + backup failed)
+# Where: ~/.nova-basic/backups/<full path of the file>.<YYYYMMDD-HHMMSS> — OUTSIDE your project, so backups
+#   never clutter the repo and can never be committed by accident (a backup of .env next to the file would
+#   slip past a ".env" line in .gitignore and could be pushed with your keys).
+# Restore: cp ~/.nova-basic/backups/<path>.<timestamp> <path>     (/nova-basic shows the latest ones)
+# Skips: files larger than NOVA_BACKUP_MAX_MB (default 20 — datasets, model weights) and a file that was
+#   already backed up in the last 5 minutes (the agent is iterating on it). Old backups are pruned after
+#   NOVA_BACKUP_KEEP_DAYS (default 14) by the session-start hook.
+# Mode: NOVA_BACKUP_MODE = warn (default: back up, never block) | enforce (block the edit when the backup
+#   cannot be written) | off.  Log: ~/.nova-basic/pre-edit-backup.log
 
 set -uo pipefail
-MODE="${NOVA_BACKUP_MODE:-warn}"
-LOG="$HOME/.nova-basic/pre-edit-backup.log"
-mkdir -p "$HOME/.nova-basic"
-[[ "$MODE" == "off" ]] && exit 0
-[[ "${NOVA_BACKUP_SKIP:-0}" == "1" ]] && { echo "[$(date '+%Y-%m-%d %H:%M:%S')] SKIP env_skip" >> "$LOG"; exit 0; }
+source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+MODE="$(nova_mode NOVA_BACKUP_MODE warn)"
+[ "$MODE" = off ] && exit 0
+nova_read_input; nova_parse
 
-INPUT="$(cat 2>/dev/null || echo '{}')"
-# [CHANGE 2026-09-24] what: python3-first JSON extraction (jq not shipped on macOS → backup silently never ran). why/verify: see secret-leak-gate.
-_j() {
-  if command -v python3 >/dev/null 2>&1; then
-    printf '%s' "$INPUT" | python3 -c '
-import sys, json
-try: d = json.load(sys.stdin)
-except Exception: print(""); sys.exit()
-cur = d
-for k in sys.argv[1].split("."):
-    cur = cur.get(k) if isinstance(cur, dict) else None
-print(cur if isinstance(cur, str) else "")' "$1" 2>/dev/null && return
-  fi
-  command -v jq >/dev/null 2>&1 && printf '%s' "$INPUT" | jq -r ".$1 // \"\"" 2>/dev/null && return
-  printf ''
-}
-TOOL=$(_j tool_name)
-FILE_PATH=$(_j tool_input.file_path)
+case "$NOVA_TOOL" in Edit|Write|MultiEdit|NotebookEdit) : ;; *) exit 0 ;; esac
+FILE="$NOVA_PATH"
+[ -n "$FILE" ] && [ -f "$FILE" ] || exit 0              # new file: nothing to back up
+case "$FILE" in *.bak|*.bak.*) exit 0 ;; esac            # never back up a backup
+case "$FILE" in "$NOVA_HOME"/*) exit 0 ;; esac
 
-case "$TOOL" in
-  Edit|Write|NotebookEdit) : ;;
-  *) exit 0 ;;
-esac
-
-# Nothing to back up if the file doesn't exist yet (Write creating a brand-new file)
-[[ -z "$FILE_PATH" || ! -f "$FILE_PATH" ]] && exit 0
-# Never back up a backup (avoid an infinite .bak chain)
-[[ "$FILE_PATH" == *.bak.* || "$FILE_PATH" == *.bak ]] && exit 0
-
-# Skip if a fresh backup (<5 min) already exists for this file — agent is iterating on the same file
-RECENT_BAK=$(find "$(dirname "$FILE_PATH")" -maxdepth 1 -name "$(basename "$FILE_PATH").bak.auto.*" -mmin -5 2>/dev/null | head -1)
-[[ -n "$RECENT_BAK" ]] && { echo "[$(date '+%Y-%m-%d %H:%M:%S')] SKIP_RECENT $RECENT_BAK" >> "$LOG"; exit 0; }
-
-TS=$(date +%Y%m%d-%H%M%S)
-BAK="${FILE_PATH}.bak.auto.${TS}"
-if cp -a "$FILE_PATH" "$BAK" 2>/dev/null; then
-  echo "✓ NOVA Basic: backed up before edit · backup dibuat sebelum edit → $(basename "$BAK")" >&2
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] BACKUP path=$FILE_PATH bak=$BAK tool=$TOOL" >> "$LOG"
+MAX_MB="${NOVA_BACKUP_MAX_MB:-20}"
+size_kb="$(du -k "$FILE" 2>/dev/null | cut -f1)"
+if [ -n "$size_kb" ] && [ "$size_kb" -gt $((MAX_MB * 1024)) ] 2>/dev/null; then
+  nova_log pre-edit-backup.log "SKIP_LARGE ${size_kb}KB $FILE"
   exit 0
 fi
 
-MSG="auto-backup FAILED for $FILE_PATH (could not write $BAK)"
-if [[ "$MODE" == "enforce" ]]; then
-  echo "BLOCKED: $MSG — fix the destination or set NOVA_BACKUP_SKIP=1 if intentional." >&2
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] BLOCK_ENFORCE $MSG" >> "$LOG"; exit 2
-else
-  echo "WARN (nova-backup): $MSG" >&2
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] WARN $MSG" >> "$LOG"; exit 0
+ABS="$FILE"; case "$ABS" in /*) : ;; *) ABS="${NOVA_CWD:-$PWD}/$ABS" ;; esac
+REL="${ABS//\\//}"; REL="${REL//:/}"                       # Windows-style paths → plain folders
+DEST_DIR="$NOVA_HOME/backups$(dirname "/${REL#/}")"
+NAME="$(basename "$ABS")"
+if mkdir -p "$DEST_DIR" 2>/dev/null; then
+  recent="$(find "$DEST_DIR" -maxdepth 1 -name "$NAME.*" -mmin -5 2>/dev/null | head -1)"
+  if [ -n "$recent" ]; then nova_log pre-edit-backup.log "SKIP_RECENT $recent"; exit 0; fi
+  BAK="$DEST_DIR/$NAME.$(date +%Y%m%d-%H%M%S)"
+  if cp -p "$FILE" "$BAK" 2>/dev/null; then
+    nova_log pre-edit-backup.log "BACKUP $FILE -> $BAK tool=$NOVA_TOOL"
+    exit 0
+  fi
 fi
+
+nova_log pre-edit-backup.log "FAILED $FILE (could not write under $DEST_DIR)"
+if [ "$MODE" = enforce ]; then
+  echo "NOVA: blocked — could not back up $FILE before editing (check free space / permissions of $NOVA_HOME)." >&2
+  exit 2
+fi
+nova_user_msg "⚠️ NOVA: could not back up $FILE before this edit (check free space / permissions of $NOVA_HOME)."
+exit 0

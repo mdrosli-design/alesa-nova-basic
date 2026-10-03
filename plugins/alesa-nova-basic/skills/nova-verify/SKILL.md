@@ -5,9 +5,6 @@ description: "Systematic verification before claiming a change is done. Iron rul
 
 # nova-verify — prove it, don't assume it
 
-> 🇲🇾 **Ringkasan:** Ini PINTU siap (gate), bukan cadangan. Jangan lapor "siap / fixed / deployed"
-> sehingga setiap probe HIJAU **dan** kerja ditutup kemas — sudah commit, ada annotation, takde yang separuh siap.
-
 **This is a completion GATE, not a suggestion you may skip.** A change is **not done** until you have
 exercised the same thing the user cares about and shown proof. Compiling, clearing a cache, or a green
 lint says nothing about whether the behaviour is correct. This skill is the practical form of
@@ -49,4 +46,5 @@ Green probes alone aren't "done" if the work is left messy. Before you report co
 - State confidence and name what you did **not** check. **Never claim 100%.**
 - If a full test is risky (e.g. on production), run a safe read-only equivalent and state the
   residual risk explicitly.
-- 🇲🇾 Jangan lapor siap selagi ada probe merah atau kerja separuh siap — pintu ini tak boleh dilangkau.
+- ALESA NOVA Basic also enforces this mechanically: a "done" claim after a code change with nothing run
+  since is sent back once by the verify-before-done gate.

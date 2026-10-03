@@ -1,0 +1,6 @@
+# editor/agent backups and OS noise — never part of a release
+*.bak
+*.bak.*
+.DS_Store
+Thumbs.db
+__pycache__/

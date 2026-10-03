@@ -9,7 +9,7 @@
 #     --no-preserve-root; sudo rm -r…; find <one of those> -delete / -exec rm
 #   • DROP DATABASE · DROP SCHEMA · DROP TABLE · TRUNCATE TABLE
 #   • git push --force / -f / --force-with-lease / +refspec / --mirror · --no-verify (skips safety hooks)
-#   • git reset --hard, git checkout -- . or git restore . while there are uncommitted changes · git clean -f
+#   • git reset --hard, or a checkout/restore of the whole tree, while there are uncommitted changes · git clean -f
 #   • piping a download into a shell: curl … | bash · bash <(curl …) · sh -c "$(curl …)"
 #   • shared-machine hazards: docker system prune -a/--volumes · docker volume prune · docker image prune -a ·
 #     mass docker rm/rmi $(docker …) · shutdown/reboot/poweroff/halt · kill -9 -1 · mkfs/wipefs ·

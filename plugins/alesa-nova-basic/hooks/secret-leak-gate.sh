@@ -129,7 +129,7 @@ git_changes() {
     if [ "$n" -gt 500 ]; then echo "more-than-500-new-files" >&3; break; fi
     p="$root/$f"; [ -f "$p" ] || continue
     if [ "$(wc -c < "$p" 2>/dev/null | tr -d ' ')" -gt 1048576 ] 2>/dev/null; then echo "large:$f" >&3; continue; fi
-    grep -Iq . "$p" 2>/dev/null || continue
+    grep -Iq -e '[[:print:]]' "$p" 2>/dev/null || continue   # text files only (-I skips binaries)
     printf 'diff --git a/%s b/%s\n+++ b/%s\n@@ new file @@\n' "$f" "$f" "$f"; sed 's/^/+/' "$p" 2>/dev/null
   done
   if [ "$kind" = push ]; then

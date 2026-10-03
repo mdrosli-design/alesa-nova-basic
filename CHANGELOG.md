@@ -5,7 +5,8 @@
 ### Fixed
 - Hooks load their shared library from `${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh` (a literal plugin path, which Claude
   Code exports to plugin hooks) instead of a path computed at run time, and the hook scripts no longer name a
-  parent-directory path. The Claude directory validator rejected both. Behaviour is unchanged.
+  parent-directory path. The Claude directory validator rejected both. Hook commands in `hooks.json` quote only the
+  variable (`"${CLAUDE_PLUGIN_ROOT}"/hooks/<file>.sh`), the documented form. Behaviour is unchanged.
 
 ## 1.2.0 — 2026-10-03
 

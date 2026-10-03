@@ -1,5 +1,13 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.2.2 — 2026-10-03
+
+### Changed
+- The plugin now lives at the root of this repository (it was in `plugins/alesa-nova-basic/`); the marketplace entry
+  points to `./`. The Claude plugin directory requires literal hook paths only for plugins in a subfolder, and a
+  root plugin is the layout its documentation recommends. The plugin's detailed README is now
+  `docs/PLUGIN-DETAILS.md`. Installed copies update normally; behaviour is unchanged.
+
 ## 1.2.1 — 2026-10-03
 
 ### Fixed

@@ -1,7 +1,7 @@
 {
   "name": "alesa-nova-basic",
   "displayName": "ALESA NOVA Basic",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Free guardrails and engineering discipline for AI coding agents. Blocks leaked secrets (including AI-provider keys) before they reach code, a commit or a push; blocks destructive commands and insecure defaults; backs up files before the agent edits them; and sends the agent back when it says 'done' without having run a passing check. Adds project continuity (init, checkpoint, resume), a Coach learning mode, AI-use reports and a self-testing doctor. Runs locally — nothing leaves your machine. English and Bahasa Malaysia.",
   "author": {
     "name": "Novastack System Sdn. Bhd.",
@@ -14,7 +14,7 @@
   "documentationUrl": "https://github.com/mdrosli-design/alesa-nova-basic#readme",
   "supportUrl": "https://github.com/mdrosli-design/alesa-nova-basic/issues",
   "privacyPolicyUrl": "https://github.com/mdrosli-design/alesa-nova-basic/blob/main/PRIVACY.md",
-  "termsOfServiceUrl": "https://github.com/mdrosli-design/alesa-nova-basic/blob/main/plugins/alesa-nova-basic/LICENSE.txt",
+  "termsOfServiceUrl": "https://github.com/mdrosli-design/alesa-nova-basic/blob/main/LICENSE.txt",
   "keywords": [
     "ai-coding",
     "guardrails",

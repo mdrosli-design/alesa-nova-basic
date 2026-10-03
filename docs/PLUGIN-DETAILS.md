@@ -33,7 +33,7 @@ From the Claude directory, or in Claude Code:
 ```
 
 Restart Claude Code and run `/nova-doctor`. Computer labs and shared machines: see
-[docs/LAB-DEPLOYMENT.md](../../docs/LAB-DEPLOYMENT.md) (install once for every account, offline mirror,
+[docs/LAB-DEPLOYMENT.md](LAB-DEPLOYMENT.md) (install once for every account, offline mirror,
 automatic updates).
 
 ## What runs on your machine (transparency)
@@ -46,7 +46,7 @@ automatic updates).
   formats redacted), and small state files. Backups are pruned after 14 days and activity logs after 90 days (configurable).
 - **Skills** may run the bundled scripts in `scripts/` when you invoke them (`/nova-init`, `/nova-doctor`,
   `/nova-report`).
-- **Network** — none. Nothing is sent or fetched by this plugin. See [PRIVACY.md](../../PRIVACY.md).
+- **Network** — none. Nothing is sent or fetched by this plugin. See [PRIVACY.md](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/PRIVACY.md).
 
 ## Settings (environment variables)
 
@@ -72,4 +72,4 @@ compliance and audit tooling, a team console, real-time supervision and on-prem 
 **https://alesa.my** · **hello@alesa.my**
 
 ---
-© Novastack System Sdn. Bhd. · free for individual and internal use — see [LICENSE.txt](LICENSE.txt).
+© Novastack System Sdn. Bhd. · free for individual and internal use — see [LICENSE.txt](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/LICENSE.txt).

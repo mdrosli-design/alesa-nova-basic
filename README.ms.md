@@ -28,7 +28,7 @@ di mana-mana sahaja ejen AI boleh menjalankan arahan dan mengubah kod. Bahasa In
 | 📝 | **Laporan penggunaan AI** | `/nova-report` — apa yang dilakukan AI, berserta pernyataan pendedahan untuk disunting, bagi tugasan dan kerja klien. |
 | 🩺 | **Doktor** | `/nova-doctor` — semakan kesihatan, ujian kendiri yang membuktikan pagar menyekat di mesin *ini*, dan laporan sokongan tanpa kandungan fail atau rahsia. |
 
-Setiap pagar ada suite ujian regresi (`plugins/alesa-nova-basic/tests/run-tests.sh`, 226 semakan) yang
+Setiap pagar ada suite ujian regresi (`tests/run-tests.sh`, 226 semakan) yang
 dijalankan pada macOS (bash 3.2 dan 5) dan Linux — Ubuntu dan Debian, x86-64 dan ARM64 (asas Raspberry Pi
 OS 64-bit dan stesen kerja AI ARM) — dalam tiga mod: dengan python3, dengan jq sahaja, dan pada mesin kosong
 tanpa kedua-duanya, kerana pagar keselamatan tidak boleh gagal terbuka.
@@ -68,7 +68,7 @@ boleh dimatikan oleh pengguna, guna cermin luar talian, dan kekal dikemas kini s
 
 Skrip bash biasa, kod sumber boleh dibaca, tiada akses rangkaian. Hook hanya menulis di bawah
 `~/.nova-basic/` — backup, log pagar dengan format rahsia yang dikenali ditapis, dan log aktiviti setempat (alat, laluan fail,
-permulaan arahan; tidak pernah kandungan fail). Butiran: [README plugin](plugins/alesa-nova-basic/README.md)
+permulaan arahan; tidak pernah kandungan fail). Butiran: [butiran plugin](docs/PLUGIN-DETAILS.md)
 dan [PRIVACY.md](PRIVACY.md).
 
 **Had yang jujur:** pagar menahan panggilan alat oleh ejen, bukan arahan yang anda taip sendiri; pengesanan
@@ -92,4 +92,4 @@ kerja terkawal — menambah:
 
 ---
 © Novastack System Sdn. Bhd. · ALESA NOVA Basic percuma untuk kegunaan individu dan dalaman — lihat
-[LICENSE.txt](plugins/alesa-nova-basic/LICENSE.txt).
+[LICENSE.txt](LICENSE.txt).

@@ -12,7 +12,7 @@
 
 NOVA_HOME="${NOVA_HOME:-$HOME/.nova-basic}"
 mkdir -p "$NOVA_HOME" 2>/dev/null && chmod 700 "$NOVA_HOME" 2>/dev/null
-NOVA_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd)"
+NOVA_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd)}"
 NOVA_VERSION="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$NOVA_ROOT/.claude-plugin/plugin.json" 2>/dev/null | head -1)"
 
 # ── High-confidence secret signatures (provider prefixes + structural). Shared by the secret gate,

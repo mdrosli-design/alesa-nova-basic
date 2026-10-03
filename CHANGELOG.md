@@ -1,5 +1,12 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.2.1 — 2026-10-03
+
+### Fixed
+- Hooks load their shared library from `${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh` (a literal plugin path, which Claude
+  Code exports to plugin hooks) instead of a path computed at run time, and the hook scripts no longer name a
+  parent-directory path. The Claude directory validator rejected both. Behaviour is unchanged.
+
 ## 1.2.0 — 2026-10-03
 
 ### Added

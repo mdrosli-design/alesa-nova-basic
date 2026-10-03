@@ -11,7 +11,7 @@
 #   Pruned after NOVA_LOG_KEEP_DAYS (default 90) by the session-start hook. Off switch: NOVA_ACTIVITY_LOG=off.
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 [ "$(nova_mode NOVA_ACTIVITY_LOG on)" = off ] && exit 0
 nova_read_input
 DIR="$NOVA_HOME/activity"; mkdir -p "$DIR" 2>/dev/null || exit 0

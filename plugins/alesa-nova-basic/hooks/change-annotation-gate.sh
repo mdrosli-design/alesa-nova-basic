@@ -11,7 +11,7 @@
 # Off switch: NOVA_ANNOTATION_MODE=off.
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 [ "$(nova_mode NOVA_ANNOTATION_MODE warn)" = off ] && exit 0
 nova_read_input; nova_parse
 case "$NOVA_TOOL" in Edit|Write|MultiEdit) : ;; *) exit 0 ;; esac

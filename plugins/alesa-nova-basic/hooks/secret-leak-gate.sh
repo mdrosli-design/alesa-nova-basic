@@ -20,7 +20,7 @@
 # Log:  ~/.nova-basic/secret-leak-gate.log (samples are masked).  Tests: tests/run-tests.sh
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 MODE="$(nova_mode NOVA_SECRET_GATE_MODE enforce)"
 [ "$MODE" = off ] && exit 0
 nova_read_input; nova_parse
@@ -134,7 +134,7 @@ git_changes() {
   done
   if [ "$kind" = push ]; then
     if git -C "$root" rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then
-      git -C "$root" log -p --no-color --no-ext-diff '@{u}..HEAD' 2>/dev/null
+      git -C "$root" log -p --no-color --no-ext-diff HEAD --not '@{u}' 2>/dev/null   # = commits not yet pushed
     else
       git -C "$root" log -p --no-color --no-ext-diff HEAD 2>/dev/null   # first push: whole history, newest first, until the 8 MB cap (reported)
     fi

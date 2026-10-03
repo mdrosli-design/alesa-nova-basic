@@ -10,6 +10,7 @@
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HOOKS="$HERE/../hooks"
+export CLAUDE_PLUGIN_ROOT="$(cd "$HERE/.." && pwd)"   # Claude Code exports this to plugin hooks
 BASH_BIN="${BASH:-$(command -v bash)}"
 QUICK=""; [ "${1:-}" = --quick ] && QUICK=1
 command -v python3 >/dev/null 2>&1 || { echo "run-tests: python3 is required to build test inputs"; exit 2; }

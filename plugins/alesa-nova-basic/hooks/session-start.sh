@@ -9,7 +9,7 @@
 # Output: plain stdout, which Claude Code adds to the session context. Off switch: NOVA_SESSION_CONTEXT=off.
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 nova_read_input; nova_parse
 
 # ── housekeeping (once a day)

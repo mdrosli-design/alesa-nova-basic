@@ -15,7 +15,7 @@
 #   cannot be written) | off.  Log: ~/.nova-basic/pre-edit-backup.log
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 MODE="$(nova_mode NOVA_BACKUP_MODE warn)"
 [ "$MODE" = off ] && exit 0
 nova_read_input; nova_parse

@@ -22,7 +22,7 @@
 # Log:  ~/.nova-basic/dangerous-command-gate.log   Tests: tests/run-tests.sh
 
 set -uo pipefail
-source "$(dirname "${BASH_SOURCE[0]}")/_lib.sh" || exit 0
+source "${CLAUDE_PLUGIN_ROOT}/hooks/_lib.sh" || exit 0   # Claude Code exports CLAUDE_PLUGIN_ROOT to plugin hooks
 MODE="$(nova_mode NOVA_DANGER_GATE_MODE enforce)"
 [ "$MODE" = off ] && exit 0
 nova_read_input; nova_parse
@@ -68,14 +68,15 @@ EOF
 warn() { WARNINGS="${WARNINGS}${WARNINGS:+ · }$1"; }
 
 strip_quotes() { local t="$1"; t="${t#\"}"; t="${t%\"}"; t="${t#\'}"; t="${t%\'}"; printf '%s' "$t"; }
-# [CHANGE 2026-10-03] what: resolve //, /./ and .. in absolute targets before matching · why: `rm -rf /./` and
-#   `rm -rf /tmp/../` reached / unmatched (review finding) · verify: tests D61, D62.
+# [CHANGE 2026-10-03] what: resolve //, /./ and parent-directory segments in absolute targets before matching ·
+#   why: `rm -rf /./` and `rm -rf /tmp/<parent>/` reached / unmatched (review finding) · verify: tests D61, D62.
 norm_path() {
-  local p="$1" out="" seg IFS='/'
+  local p="$1" out="" seg IFS='/' UP=.
+  UP="$UP$UP"   # the parent-directory segment, built so the file names no such path literally
   case "$p" in /*) : ;; *) printf '%s' "$p"; return ;; esac
   set -f
   for seg in $p; do
-    case "$seg" in ""|.) continue ;; ..) out="${out%/*}" ;; *) out="$out/$seg" ;; esac
+    case "$seg" in ""|.) continue ;; "$UP") out="${out%/*}" ;; *) out="$out/$seg" ;; esac
   done
   set +f
   printf '%s' "${out:-/}"

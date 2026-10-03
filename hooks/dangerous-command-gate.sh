@@ -130,7 +130,11 @@ short_flag() {
 }
 
 # ── fork bomb (checked on the raw text before any splitting)
-case "$CMD" in *':(){ :|:& };:'*|*':(){:|:&};:'*|*':(){ :|: & };:'*) block "fork bomb — would freeze the machine for every user" ;; esac
+# [CHANGE 2026-10-04] what: quoted strings are removed first · why: `echo ':(){ :|:& };:'` only prints text but was
+#   blocked (review finding, B-181) · verify: tests D81-D92.
+UNQUOTED="$(printf '%s' "$CMD" | sed -E "s/'[^']*'//g; s/\"([^\"\\\\]|\\\\.)*\"//g")"
+printf '%s' "$UNQUOTED" | grep -qE ':\(\)[[:space:]]*\{[[:space:]]*:[[:space:]]*\|[[:space:]]*:[[:space:]]*&[[:space:]]*\}[[:space:]]*;[[:space:]]*:' \
+  && block "fork bomb — would freeze the machine for every user"
 
 # ── recursive delete
 while IFS= read -r inv; do
@@ -220,8 +224,15 @@ done < <(printf '%s' "$C" | grep -oE "${GITRE}clean${NOVA_SH_ARGS}" 2>/dev/null)
 
 # ── downloads piped into a shell
 if printf '%s' "$C" | grep -qiE '(^|[^[:alnum:]_-])(curl|wget|fetch|iwr|invoke-webrequest)([[:space:]]|$)'; then
-  printf '%s' "$C" | grep -qE '\|[[:space:]]*(sudo[[:space:]]+(-[[:alnum:]-]+[[:space:]]+)*)?(env[[:space:]]+([A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*[[:space:]]+)*)?(ba|z|da|k|fi|c|tc)?sh([[:space:]]|$|;)' \
+  # [CHANGE 2026-10-04] what: the receiving side may be a subshell or { …; } group, `sudo -u <user>` (an option with a
+  #   value), a path-qualified shell (/bin/bash) or an interpreter reading stdin (python3, node, perl, ruby, php — with
+  #   no script argument, or `-`) · why: these forms slipped past (review findings, B-181) · verify: tests D81-D92.
+  PIPE_TO='\|[[:space:]]*([({][[:space:]]*)?(sudo([[:space:]]+-[[:alnum:]-]+(=[^[:space:]]*)?([[:space:]]+[^-[:space:];&|()][^[:space:];&|()]*)?)*[[:space:]]+)?(env([[:space:]]+[A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*)*[[:space:]]+)?([^[:space:];&|()]*/)?'
+  printf '%s' "$C" | grep -qE "${PIPE_TO}(ba|z|da|k|mk|fi|c|tc|a)?sh([[:space:];&|)}]|\$)" \
     && block "pipes a download straight into a shell (runs unreviewed remote code)" "download the script, read it, then run it yourself."
+  # interpreter options that do not name an inline script (-u, -B, -E, -I, -O, -q, -s, -S, -v, -w, -W, -T) may come first
+  printf '%s' "$C" | grep -qE "${PIPE_TO}(python[23]?|node|perl|ruby|php)([[:space:]]+-[uBEIOqsSvwWT]+)*([[:space:]]+-)?[[:space:]]*([;&|)}]|\$)" \
+    && block "pipes a download into an interpreter that runs it (unreviewed remote code)" "download the script, read it, then run it yourself."
   printf '%s' "$C" | grep -qE '(^|[[:space:];&|(])((ba|z|da|k)?sh|source|\.)[[:space:]]+(-[[:alnum:]]+[[:space:]]+)*<\([[:space:]]*(curl|wget)' \
     && block "runs a downloaded script through process substitution (unreviewed remote code)" "download the script, read it, then run it yourself."
   printf '%s' "$C" | grep -qE '(ba|z|da|k)?sh[[:space:]]+-c[[:space:]]+["'"'"']?\$\([[:space:]]*(curl|wget)' \
@@ -229,12 +240,15 @@ if printf '%s' "$C" | grep -qiE '(^|[^[:alnum:]_-])(curl|wget|fetch|iwr|invoke-w
 fi
 
 # ── shared machines: docker
-DK='(^|[[:space:];&|(`])(sudo[[:space:]]+)?docker[[:space:]]+'
-printf '%s ' "$C" | grep -qE "${DK}system[[:space:]]+prune[^;&|]*[[:space:]](-a|--all|--volumes)[[:space:]]" \
+# [CHANGE 2026-10-04] what: docker global options before the subcommand (--context x, -H host, --config dir …) and
+#   short-option clusters (-af) · why: `docker --context prod system prune -a` and `docker system prune -af` slipped
+#   past (review findings, B-181) · verify: tests D81-D92.
+DK='(^|[[:space:];&|(`])(sudo[[:space:]]+)?docker([[:space:]]+(-c|--context|-H|--host|-l|--log-level|--config|--tlscacert|--tlscert|--tlskey)[[:space:]]+[^-[:space:]][^[:space:]]*|[[:space:]]+-[[:alnum:]-]+(=[^[:space:]]*)?)*[[:space:]]+'
+printf '%s ' "$C" | grep -qE "${DK}system[[:space:]]+prune[^;&|]*[[:space:]](-[a-zA-Z]*a[a-zA-Z]*|--all(=(true|1))?|--volumes(=(true|1))?)[[:space:]]" \
   && block "docker system prune -a/--volumes removes every unused image, container and volume on this machine — including other users'" "remove only your own containers/images by name."
 printf '%s' "$C" | grep -qE "${DK}volume[[:space:]]+prune" \
   && block "docker volume prune deletes all unused volumes (datasets, databases, model caches) on this machine" "remove a specific volume by name."
-printf '%s ' "$C" | grep -qE "${DK}image[[:space:]]+prune[^;&|]*[[:space:]](-a|--all)[[:space:]]" \
+printf '%s ' "$C" | grep -qE "${DK}image[[:space:]]+prune[^;&|]*[[:space:]](-[a-zA-Z]*a[a-zA-Z]*|--all(=(true|1))?)[[:space:]]" \
   && block "docker image prune -a deletes every image not in use — other users must download them again" "remove a specific image by name."
 printf '%s' "$C" | grep -qE "${DK}(rm|rmi|container[[:space:]]+rm|image[[:space:]]+rm|volume[[:space:]]+rm)[[:space:]][^;&|]*\\\$\([[:space:]]*(sudo[[:space:]]+)?docker" \
   && block "mass-removes Docker containers/images/volumes selected by \$(docker …)" "remove specific items by name."
@@ -245,7 +259,10 @@ while IFS= read -r seg; do
   seg="$(printf '%s' "$seg" | sed -E 's/^[[:space:]]+//')"
   while :; do
     case "$seg" in
-      sudo\ *|nohup\ *|time\ *|exec\ *|command\ *|builtin\ *) seg="${seg#* }"; seg="$(printf '%s' "$seg" | sed -E 's/^(-[[:alnum:]-]+[[:space:]]+)*//')" ;;
+      # [CHANGE 2026-10-04] what: sudo options that take a value (-u root …) are skipped with their value · why: `sudo -u
+      #   root systemctl reboot` read "root" as the command (review finding, B-181) · verify: tests D81-D92.
+      sudo\ *) seg="${seg#* }"; seg="$(printf '%s' "$seg" | sed -E 's/^((-[ugphCDrtUTR]|--(user|group|host|prompt|close-from|chdir|role|type|other-user|command-timeout|chroot))[[:space:]]+[^[:space:]]+[[:space:]]+|-[[:alnum:]-]+(=[^[:space:]]*)?[[:space:]]+)*//')" ;;
+      nohup\ *|time\ *|exec\ *|command\ *|builtin\ *) seg="${seg#* }"; seg="$(printf '%s' "$seg" | sed -E 's/^(-[[:alnum:]-]+[[:space:]]+)*//')" ;;
       env\ *) seg="${seg#env }" ;;
       [A-Za-z_]*=*\ *) case "${seg%% *}" in *=*) seg="${seg#* }" ;; *) break ;; esac ;;
       *) break ;;
@@ -254,7 +271,19 @@ while IFS= read -r seg; do
   w1="${seg%% *}"; rest="${seg#"$w1"}"; rest="$(printf '%s' "$rest" | sed -E 's/^[[:space:]]+//')"; w2="${rest%% *}"
   case "$w1" in
     shutdown|reboot|poweroff|halt) block "$w1 — powers off/restarts the machine (ends every user's work)" ;;
-    systemctl) case "$w2" in poweroff|reboot|halt|kexec|suspend|hibernate|hybrid-sleep) block "systemctl $w2 — powers off/restarts the machine" ;; esac ;;
+    # [CHANGE 2026-10-04] what: options before the verb are skipped (with the value of -H/-M/-t/-p/… ) · why: `systemctl
+    #   --no-ask-password reboot` slipped past (review finding, B-181) · verify: tests D81-D92.
+    systemctl|loginctl)
+      verb=""; skipv=0; set -f
+      for tok in $rest; do
+        [ "$skipv" = 1 ] && { skipv=0; continue; }
+        case "$tok" in
+          -H|--host|-M|--machine|-t|--type|-p|--property|-s|--signal|-n|--lines|-o|--output|--root|--when|--message) skipv=1 ;;
+          -*) : ;;
+          *) verb="$tok"; break ;;
+        esac
+      done; set +f
+      case "$verb" in poweroff|reboot|halt|kexec|suspend|hibernate|hybrid-sleep|soft-reboot) block "$w1 $verb — powers off/restarts the machine" ;; esac ;;
     init|telinit) case "$w2" in 0|6) block "$w1 $w2 — halts/reboots the machine" ;; esac ;;
     kill) printf '%s ' "$seg" | grep -qE '^kill[[:space:]]+(-9|-KILL|-SIGKILL|-s[[:space:]]+(9|KILL)|--)[[:space:]]+-1[[:space:]]' && block "kill … -1 kills every process you own (all your sessions, notebooks and jobs)" ;;
     mkfs|mkfs.*|wipefs) block "$w1 — erases a disk / partition" ;;

@@ -1,5 +1,17 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.2.4 — 2026-10-04
+
+### Fixed
+- Dangerous-command guard: a download piped into `/bin/bash`, `sudo -u root bash`, a subshell `(bash)`, a
+  `{ bash; }` group or an interpreter reading stdin (`python3`, `python3 -`, node, perl, ruby, php) is now blocked;
+  `systemctl --no-ask-password reboot` and `sudo -u root systemctl reboot` are recognised; Docker global options
+  (`--context`, `-H` …) and clusters such as `docker system prune -af` / `docker image prune -af` are read.
+- A fork bomb written inside quotes (`echo ':(){ :|:& };:'`) is only text and is no longer blocked.
+- Also recognised: `--all=true` / `--volumes=true`, `sudo --user=root`, interpreter options before stdin (`python3 -u`),
+  and a fork bomb written with extra spaces or tabs.
+- Regression suite: 250 checks.
+
 ## 1.2.3 — 2026-10-03
 
 ### Changed

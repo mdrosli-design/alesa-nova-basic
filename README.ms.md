@@ -28,7 +28,7 @@ di mana-mana sahaja ejen AI boleh menjalankan arahan dan mengubah kod. Bahasa In
 | 📝 | **Laporan penggunaan AI** | `/nova-report` — apa yang dilakukan AI, berserta pernyataan pendedahan untuk disunting, bagi tugasan dan kerja klien. |
 | 🩺 | **Doktor** | `/nova-doctor` — semakan kesihatan, ujian kendiri yang membuktikan pagar menyekat di mesin *ini*, dan laporan sokongan tanpa kandungan fail atau rahsia. |
 
-Setiap pagar ada suite ujian regresi (`tests/run-tests.sh`, 226 semakan) yang
+Setiap pagar ada suite ujian regresi (`tests/run-tests.sh`, 250 semakan) yang
 dijalankan pada macOS (bash 3.2 dan 5) dan Linux — Ubuntu dan Debian, x86-64 dan ARM64 (asas Raspberry Pi
 OS 64-bit dan stesen kerja AI ARM) — dalam tiga mod: dengan python3, dengan jq sahaja, dan pada mesin kosong
 tanpa kedua-duanya, kerana pagar keselamatan tidak boleh gagal terbuka.

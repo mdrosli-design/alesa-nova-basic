@@ -27,7 +27,7 @@ agent can run commands and edit code. English and Bahasa Malaysia.
 | 📝 | **AI-use report** | `/nova-report` — what the AI did, plus a disclosure statement to edit, for coursework and client work. |
 | 🩺 | **Doctor** | `/nova-doctor` — health check, a self-test proving the guards block on *this* machine, and a support report with no file contents or secrets. |
 
-Every guard has a regression suite (`tests/run-tests.sh`, 226 checks) that runs on
+Every guard has a regression suite (`tests/run-tests.sh`, 250 checks) that runs on
 macOS (bash 3.2 and 5) and Linux — Ubuntu and Debian, x86-64 and ARM64 (the base of Raspberry Pi OS 64-bit
 and of ARM AI workstations) — in three modes: with python3, with jq only, and on a bare machine with neither,
 because a security guard must never fail open.

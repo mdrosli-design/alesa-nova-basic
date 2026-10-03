@@ -72,4 +72,4 @@ compliance and audit tooling, a team console, real-time supervision and on-prem 
 **https://alesa.my** · **hello@alesa.my**
 
 ---
-© Novastack System Sdn. Bhd. · free for individual and internal use — see [LICENSE.txt](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/LICENSE.txt).
+© Novastack System Sdn. Bhd. · open source under the [Mozilla Public License 2.0](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/LICENSE.txt) from version 1.3.0 · names and logo: [TRADEMARKS.md](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/TRADEMARKS.md) · contributing: [CONTRIBUTING.md](https://github.com/mdrosli-design/alesa-nova-basic/blob/main/CONTRIBUTING.md).

@@ -107,5 +107,6 @@ kerja terkawal — menambah:
 **https://alesa.my** · **hello@alesa.my**
 
 ---
-© Novastack System Sdn. Bhd. · ALESA NOVA Basic percuma untuk kegunaan individu dan dalaman — lihat
-[LICENSE.txt](LICENSE.txt).
+© Novastack System Sdn. Bhd. · ALESA NOVA Basic ialah sumber terbuka di bawah
+[Mozilla Public License 2.0](LICENSE.txt) mulai versi 1.3.0. Nama dan logo tidak termasuk dalam lesen —
+lihat [TRADEMARKS.md](TRADEMARKS.md). Menyumbang: [CONTRIBUTING.md](CONTRIBUTING.md).

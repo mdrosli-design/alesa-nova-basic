@@ -1,5 +1,17 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.3.0 — 2026-10-04
+
+### Changed
+- Licence: from version 1.3.0, ALESA NOVA Basic is open source under the **Mozilla Public License 2.0**
+  ([LICENSE.txt](LICENSE.txt)). You may use, modify and share it, including commercially; changes to these files
+  stay open under the same licence. Versions up to 1.2.4 remain under the licence they were released with.
+- The names ALESA and ALESA NOVA and the logo are not covered by the licence — see [TRADEMARKS.md](TRADEMARKS.md).
+
+### Added
+- [CONTRIBUTING.md](CONTRIBUTING.md), a [Contributor Licence Agreement](CLA.md) and a pull-request template.
+  The hooks, skills and tests are unchanged.
+
 ## 1.2.4 — 2026-10-04
 
 ### Fixed

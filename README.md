@@ -1,38 +1,36 @@
-<!-- EN below · Bahasa Malaysia di bawah ↓ -->
+# ALESA NOVA Basic
 
-# ALESA NOVA — Marketplace (free)
+**Disciplined AI coding — free. Vibe code without the disasters.**
 
-**Disciplined AI coding for solo builders. Vibe code without the disasters.**
-*(Baca dalam Bahasa Malaysia ↓)*
+[Bahasa Malaysia](README.ms.md) · [Lab deployment](docs/LAB-DEPLOYMENT.md) · [Privacy](PRIVACY.md) · [Changelog](CHANGELOG.md)
 
-This marketplace hosts **ALESA NOVA Basic** — a free Claude Code plugin that adds *mechanical*
-guardrails to your AI coding agent: hooks that **act** at the moment of risk (block or back up),
-not best-effort reminders. It's the answer to the real failure modes of fast AI coding — leaked
-secrets, insecure defaults, overwritten work, and "done" claims that were never verified.
+AI coding agents are fast — and that speed is how API keys leak, insecure defaults ship, working code gets
+overwritten and a "done ✅" turns out to be untested. **ALESA NOVA Basic** is a free Claude Code plugin that
+adds *mechanical* discipline: hooks that **act** at the moment of risk — block, back up, or send the agent
+back to prove its work — plus a short working method, project continuity, a learning mode and a self-testing
+doctor. It runs entirely on your machine.
 
-## What ALESA NOVA Basic gives you
+Built for **developers**, **learners and computer labs**, and **on-prem AI workstations** — anywhere an AI
+agent can run commands and edit code. English and Bahasa Malaysia.
 
-| Guard | What it does | Disaster it prevents |
-|-------|--------------|----------------------|
-| **secret-leak gate** | Blocks a real API key / token / DB password / private key from entering a client-exposed file or a commit. | Pushing an API key to a public repo. |
-| **insecure-default gate** | Blocks RLS-off, TLS-verify-off, wildcard CORS + credentials, `DEBUG` in a prod env. | Wide-open databases & security holes. |
-| **dangerous-command gate** | Blocks catastrophic Bash — `rm -rf /`, `DROP DATABASE`, `git push --force`, `curl \| bash`. | "The AI deleted my files / dropped my database." |
-| **backup-before-edit** | Auto-saves `<file>.bak.auto` before the agent edits an existing file. | "The AI overwrote my working code." |
-| **change-annotation** | Nudges a `// [CHANGE] what · why · verify` note on code edits. | Code nobody can understand later. |
+## What you get
 
-Plus a working method (3 Laws · evidence-based "done" · untrusted-until-proven) and three skills —
-`/nova-verify` (systematic verification + evidence table), `/nova-brainstorm` (design-before-build),
-and `/nova-tdd` (test-first discipline: red → green → refactor).
+| | Module | What it does |
+|---|---|---|
+| 🛡 | **Secret-leak guard** | Blocks real credentials — cloud, payment, git hosting and AI-provider keys (OpenAI, Anthropic, Hugging Face, Groq, Replicate, OpenRouter, xAI, Perplexity, Google) — from client code, public env vars, a commit or a push. Scans the actual changes being committed or pushed (up to 500 new files, 1 MB per file, 8 MB in total — you are told when a scan is partial). |
+| 🛡 | **Dangerous-command guard** | Blocks mass deletes of system/home folders, DROP/TRUNCATE, force-push, `--no-verify`, `curl … \| bash`, and shared-machine hazards: docker prune of everything, reboot/shutdown, `git reset --hard` or `git clean` over uncommitted work. |
+| 🛡 | **Insecure-default guard** | Blocks RLS off, open Firebase rules, TLS verification off, wildcard CORS with credentials, DEBUG in production, Jupyter on the network without a token. Warns on exposed model servers and Gradio public links. |
+| 💾 | **Backup before edit** | Copies each file (notebooks included) before the agent edits it — once per 5-minute burst, files over 20 MB skipped — outside your project, so backups are never committed. |
+| ⚖️ | **The 3 Laws** | Read before you write · back up before you change · verify after you change — given to the agent every session. A *verify-before-done* gate sends it back once when it claims "done" without a passing check (a failed run doesn't count; needs python3). |
+| 🔁 | **Continuity** | `/nova-init`, `/nova-checkpoint`, `/nova-resume` (`/nova-sambung`): a project brief that every new session reads first, on any machine. |
+| 🎓 | **Coach mode** | A learning output style: explains first, small steps, leaves the key part for you, checks understanding. |
+| 📝 | **AI-use report** | `/nova-report` — what the AI did, plus a disclosure statement to edit, for coursework and client work. |
+| 🩺 | **Doctor** | `/nova-doctor` — health check, a self-test proving the guards block on *this* machine, and a support report with no file contents or secrets. |
 
-## Why ALESA NOVA (what makes it different)
-
-Most AI-coding helpers *advise* — they suggest, warn, or wait for you to switch on a "safe mode".
-ALESA NOVA **acts**:
-
-- **Mechanical, not advisory** — the gates *block* a risky action (exit 2); they don't just print a warning you can scroll past.
-- **Always-on, nothing to remember** — once installed, the guards run automatically on every action, every session. There's no "careful mode" to enable; protection never depends on you remembering.
-- **Built for the moment you don't know better** — for solo builders and people learning to code with AI, safety is on by default, not opt-in.
-- **A real compliance path** — the licensed editions cover Malaysian PDPA, ISO/IEC 27001, and MAMPU-aligned work: discipline that holds up for agency, regulated, and banking-tier delivery — not just generic productivity.
+Every guard has a regression suite (`plugins/alesa-nova-basic/tests/run-tests.sh`, 226 checks) that runs on
+macOS (bash 3.2 and 5) and Linux — Ubuntu and Debian, x86-64 and ARM64 (the base of Raspberry Pi OS 64-bit
+and of ARM AI workstations) — in three modes: with python3, with jq only, and on a bare machine with neither,
+because a security guard must never fail open.
 
 ## Install
 
@@ -40,73 +38,56 @@ ALESA NOVA **acts**:
 /plugin marketplace add mdrosli-design/alesa-nova-basic
 /plugin install alesa-nova-basic@alesa-nova
 ```
-Restart Claude Code, then run `/nova-basic` to see what's active.
 
-The two security gates **block by default**. Flip to warn-only while you learn:
-`NOVA_SECRET_GATE_MODE=warn` · `NOVA_INSECURE_GATE_MODE=warn`.
+Restart Claude Code, then run `/nova-doctor`. Updates: `claude plugin update alesa-nova-basic@alesa-nova`,
+or turn on automatic updates once: `/plugin` → **Marketplaces** → `alesa-nova` → **Enable auto-update**
+(off by default for third-party marketplaces).
 
-## Editions
+**Computer labs and shared machines** — install once for every account, pin the guard settings so they can't
+be switched off per user, use an offline mirror, and keep it updated automatically:
+[docs/LAB-DEPLOYMENT.md](docs/LAB-DEPLOYMENT.md).
 
-**Basic** (this — free, solo) → **Compliance** (licensed: Malaysian PDPA · ISO/IEC 27001 · MAMPU
-alignment + security/audit suite) → team/agency multi-tenant + real-time supervision.
+## Commands
 
-Licensing & higher editions: **hello@alesa.my** · **https://alesa.my**
+| Command | |
+|---|---|
+| `/nova-basic` | What is active and how to use it |
+| `/nova-init` | Project brief + changelog + safe `.gitignore` (never overwrites) |
+| `/nova-checkpoint [commit]` | Save progress into the brief (optionally a local commit) |
+| `/nova-resume` · `/nova-sambung` | Continue from the brief |
+| `/nova-verify` · `/nova-brainstorm` · `/nova-tdd` | Verification table · design before build · test first |
+| `/nova-report` | AI-use report |
+| `/nova-doctor [--save]` | Health check, self-test, support report |
+| Output style **Coach** | `/config` → Output style |
 
----
+(The full names are `/alesa-nova-basic:<command>`; the short form works when no other command uses it.)
 
-# 🇲🇾 ALESA NOVA — Marketplace (percuma)
+## Transparency
 
-**AI coding yang berdisiplin untuk pembina solo. Vibe code tanpa bencana.**
+Plain bash scripts, readable source, no network access. The hooks write only under `~/.nova-basic/` —
+backups, guard logs with known secret formats masked, and a local activity log (tool, file path, command head;
+never file contents). Details: [plugin README](plugins/alesa-nova-basic/README.md#what-runs-on-your-machine-transparency)
+and [PRIVACY.md](PRIVACY.md).
 
-Marketplace ini menyediakan **ALESA NOVA Basic** — plugin Claude Code percuma yang melengkapkan
-AI coding agent anda dengan pagar keselamatan **automatik**. Bukan sekadar peringatan — hook-nya
-benar-benar bertindak pada saat berisiko: menyekat tindakan bahaya atau membuat backup dengan
-sendiri. Ia direka untuk menangani masalah yang kerap timbul apabila kita coding laju bersama AI —
-secret bocor, tetapan lalai yang tidak selamat (insecure default), kod sedia ada tertimpa-ganti,
-dan kerja yang didakwa "siap" sedangkan tidak pernah disahkan.
+**Honest limits:** the guards stop the agent's tool calls, not commands you type yourself; detection reads the
+command text (common, high-confidence forms, including quoted paths and option clusters) — a command disguised
+through variables, aliases, `eval`, a script or a config override is not seen; the done gate needs python3; the
+activity log is local and editable; Basic does not replace code review.
 
-## Apa yang ALESA NOVA Basic beri anda
+## The ALESA NOVA framework
 
-| Pagar (gate) | Fungsinya | Bencana yang dielakkan |
-|-------|--------------|----------------------|
-| **secret-leak gate** | Menyekat API key / token / DB password / private key sebenar daripada masuk ke fail yang terdedah kepada client (client-exposed) atau ke dalam commit. | API key tertolak ke repo awam. |
-| **insecure-default gate** | Menyekat RLS dimatikan, TLS-verify dimatikan, wildcard CORS dengan credentials, dan `DEBUG` dalam env prod. | Database terdedah luas dan lubang keselamatan. |
-| **dangerous-command gate** | Menyekat arahan Bash memusnahkan — `rm -rf /`, `DROP DATABASE`, `git push --force`, `curl \| bash`. | "AI padam fail aku / drop database aku." |
-| **backup-before-edit** | Membuat backup `<file>.bak.auto` dengan sendiri sebelum agent mengedit fail sedia ada. | "AI tertimpa-ganti kod aku yang dah berjalan." |
-| **change-annotation** | Mengingatkan agar nota `// [CHANGE] what · why · verify` ditinggalkan pada setiap edit kod. | Kod yang tiada siapa boleh fahami kemudian hari. |
+Basic is the free edition of **ALESA NOVA**, an engineering-discipline framework for AI coding agents built
+on one idea: *evidence, not promises.* Licensed editions — for teams, agencies, institutions and regulated
+work — add:
 
-Disertakan juga satu kaedah kerja (3 Laws · "siap" mesti berasaskan bukti · jangan percaya
-sebelum disahkan) dan tiga skill — `/nova-verify` (pengesahan sistematik + jadual bukti),
-`/nova-brainstorm` (reka bentuk sebelum bina), dan `/nova-tdd` (disiplin test-dahulu: red → green → refactor).
+- an independent second-AI review of every significant change before it ships
+- a blueprint ledger, so nothing in a specification is silently left out
+- an enforced project lifecycle (brief, checkpoint, close) across a whole team
+- compliance and audit tooling (data protection, ISO/IEC 27001 gap analysis)
+- a team console, real-time supervision, and on-prem deployment
 
-## Kenapa ALESA NOVA (apa yang membezakannya)
-
-Kebanyakan alat bantu AI coding sekadar *menasihati* — ia mencadang, memberi amaran, atau menunggu
-anda hidupkan "mod selamat". ALESA NOVA pula **bertindak**:
-
-- **Mekanikal, bukan sekadar nasihat** — gate-nya *menyekat* tindakan berisiko (exit 2), bukan sekadar mencetak amaran yang boleh anda abaikan.
-- **Sentiasa aktif, tiada apa-apa untuk diingat** — sebaik dipasang, guard berjalan automatik pada setiap tindakan, setiap sesi. Tiada "mod berhati-hati" untuk dihidupkan; perlindungan tidak pernah bergantung pada ingatan anda.
-- **Direka untuk saat anda belum tahu** — untuk pembina solo dan mereka yang baru belajar coding dengan AI, keselamatan hidup secara lalai, bukan atas pilihan.
-- **Laluan compliance yang sebenar** — edisi berlesen meliputi PDPA Malaysia, ISO/IEC 27001, dan kerja sejajar MAMPU: disiplin yang tahan untuk penyampaian agensi, regulated, dan banking-tier — bukan sekadar produktiviti umum.
-
-## Pasang (Install)
-
-```
-/plugin marketplace add mdrosli-design/alesa-nova-basic
-/plugin install alesa-nova-basic@alesa-nova
-```
-Mulakan semula Claude Code, kemudian jalankan `/nova-basic` untuk melihat apa yang sedang aktif.
-
-Kedua-dua security gate ini **menyekat secara lalai**. Tukarkan kepada mod amaran sahaja (warn)
-sementara anda masih belajar: `NOVA_SECRET_GATE_MODE=warn` · `NOVA_INSECURE_GATE_MODE=warn`.
-
-## Edisi
-
-**Basic** (ini — percuma, untuk solo) → **Compliance** (berlesen: PDPA Malaysia · ISO/IEC 27001 ·
-penjajaran MAMPU + suite keselamatan/audit) → multi-tenant untuk pasukan/agensi + pengawasan
-masa nyata.
-
-Pelesenan & edisi lebih tinggi: **hello@alesa.my** · **https://alesa.my**
+**https://alesa.my** · **hello@alesa.my**
 
 ---
-© Novastack System Sdn. Bhd.. Edisi Basic percuma untuk kegunaan individu — lihat LICENSE.txt plugin.
+© Novastack System Sdn. Bhd. · ALESA NOVA Basic is free for individual and internal use — see
+[LICENSE.txt](plugins/alesa-nova-basic/LICENSE.txt).

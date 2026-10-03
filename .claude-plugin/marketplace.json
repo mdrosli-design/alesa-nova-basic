@@ -1,22 +1,19 @@
 {
   "name": "alesa-nova",
+  "description": "ALESA NOVA — engineering discipline for AI coding agents. This marketplace hosts ALESA NOVA Basic, the free edition.",
   "owner": {
     "name": "Novastack System Sdn. Bhd.",
     "email": "hello@alesa.my",
     "url": "https://alesa.my"
   },
-  "metadata": {
-    "edition": "public-free",
-    "homepage": "https://alesa.my/novaplugin",
-    "note": "Public marketplace — free Basic edition only. Compliance/Banking editions are licensed (hello@alesa.my)."
-  },
   "plugins": [
     {
       "name": "alesa-nova-basic",
+      "displayName": "ALESA NOVA Basic",
       "source": "./plugins/alesa-nova-basic",
-      "description": "ALESA NOVA Basic — free, disciplined AI coding for solo builders: mechanical guardrails that block leaked secrets, insecure defaults & catastrophic commands (rm -rf / · DROP DATABASE · force-push), auto-backup before edits, and verify-before-done. Works with no extra tools (no jq needed).",
-      "version": "1.1.0",
-      "category": "Free · AI coding security & discipline",
+      "description": "Free guardrails and engineering discipline for AI coding: blocks leaked secrets (incl. AI-provider keys) before commit/push, destructive commands and insecure defaults; backs up before edits; verify-before-done; project continuity (init · checkpoint · resume); Coach mode; AI-use reports; self-testing doctor. Local only. English and Bahasa Malaysia.",
+      "category": "security",
+      "tags": ["guardrails", "secrets", "verification", "education", "continuity"],
       "strict": true
     }
   ]

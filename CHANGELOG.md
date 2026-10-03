@@ -1,5 +1,11 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.2.3 — 2026-10-03
+
+### Changed
+- `/nova-init`, `/nova-checkpoint` and `/nova-report` are pre-approved to edit only the files they write
+  (`docs/RESUME-BRIEF.md`, `CHANGELOG.md`, `AI-USE-REPORT.md`) instead of any file. Anything else asks you first.
+
 ## 1.2.2 — 2026-10-03
 
 ### Changed

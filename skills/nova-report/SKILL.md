@@ -2,7 +2,7 @@
 name: nova-report
 description: "Produce an AI-use report from the local activity log: what the AI agent did (files changed, commands, checks run, guard events, backups) plus a disclosure statement to edit — for coursework, research or client work that requires declaring AI assistance. Arguments: --days N, --since YYYY-MM-DD, --all. BM: laporan penggunaan AI, pendedahan AI, laporan tugasan."
 argument-hint: "[--days N | --since YYYY-MM-DD] [--all]"
-allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/alesa-report.sh *) Write
+allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/alesa-report.sh *) Edit(./AI-USE-REPORT.md)
 ---
 
 # nova-report — declare AI use honestly

@@ -2,7 +2,7 @@
 name: nova-init
 description: "Set up project continuity: a resume brief (docs/RESUME-BRIEF.md) that every new session reads first, a CHANGELOG, git if missing, and .gitignore lines that keep secrets out of git. Never overwrites existing files. Use when starting or adopting a project. BM: sediakan projek, mulakan projek, init projek."
 disable-model-invocation: true
-allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/alesa-init.sh *) Read Edit
+allowed-tools: Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/alesa-init.sh *) Read Edit(./docs/RESUME-BRIEF.md)
 ---
 
 # nova-init — give the project a memory

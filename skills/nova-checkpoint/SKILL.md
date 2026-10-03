@@ -2,7 +2,7 @@
 name: nova-checkpoint
 description: "Save progress into the project brief so the next session, person or machine continues cleanly: status, what was done with evidence, what remains, the next step, warnings. Add the argument 'commit' to also make a local git commit (never pushes). Use when the user says checkpoint, save progress, update the brief, or is about to stop. BM: simpan kemajuan, checkpoint, kemas kini brief, sebelum berhenti."
 argument-hint: "[commit]"
-allowed-tools: Read Edit Write Bash(git status *) Bash(git log *) Bash(git diff *) Bash(git add *) Bash(git commit *)
+allowed-tools: Read Edit(./docs/RESUME-BRIEF.md) Edit(./CHANGELOG.md) Bash(git status *) Bash(git log *) Bash(git diff *) Bash(git add *) Bash(git commit *)
 ---
 
 # nova-checkpoint — hand the baton on

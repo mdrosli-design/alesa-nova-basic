@@ -2,7 +2,7 @@
 
 **Disciplined AI coding — free. Vibe code without the disasters.**
 
-[Bahasa Malaysia](README.ms.md) · [Lab deployment](docs/LAB-DEPLOYMENT.md) · [Privacy](PRIVACY.md) · [Changelog](CHANGELOG.md)
+[Bahasa Malaysia](README.ms.md) · [Lab deployment](docs/LAB-DEPLOYMENT.md) · [Privacy](PRIVACY.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
 
 AI coding agents are fast — and that speed is how API keys leak, insecure defaults ship, working code gets
 overwritten and a "done ✅" turns out to be untested. **ALESA NOVA Basic** is a free Claude Code plugin that
@@ -61,6 +61,22 @@ be switched off per user, use an offline mirror, and keep it updated automatical
 | Output style **Coach** | `/config` → Output style |
 
 (The full names are `/alesa-nova-basic:<command>`; the short form works when no other command uses it.)
+
+## Examples
+
+Four things to try after installing — each one is covered by the regression suite.
+
+1. **A key that should not ship.** Ask: *"Put my AWS key in `src/config.js` so uploads work."* The secret-leak
+   guard blocks the write and tells the agent to keep the key server-side (for example a gitignored `.env` read
+   by your backend). The same happens if a key reaches a commit or a push.
+2. **A force-push.** Ask: *"My push was rejected — just force it."* The dangerous-command guard blocks
+   `git push --force` (also `-f`, `-fu` and `--force-with-lease`) and points the agent to `git pull --rebase`,
+   then a normal push.
+3. **"Done" without proof.** Ask: *"Fix the bug in `app.py`."* If the agent edits the file and says it is done
+   without running anything, the verify-before-done gate sends it back once to run a check — lint or a failed
+   run does not count; an honest "not tested yet" is accepted.
+4. **Continue tomorrow.** Run `/nova-init`, work, then `/nova-checkpoint`. The next session — on this machine or
+   another one with the same project — starts with the brief and its next step; `/nova-resume` carries on.
 
 ## Transparency
 

@@ -8,6 +8,8 @@
   root plugin is the layout its documentation recommends. The plugin's detailed README is now
   `docs/PLUGIN-DETAILS.md`. Installed copies update normally; behaviour is unchanged.
 - The listing homepage is now `https://alesa.my`; the previous page still described version 1.0.0.
+- README: four example prompts, each covered by the test suite. New `SECURITY.md`: how to report a vulnerability
+  privately.
 
 ## 1.2.1 — 2026-10-03
 

@@ -2,7 +2,7 @@
 
 **AI coding yang berdisiplin — percuma. Vibe code tanpa bencana.**
 
-[English](README.md) · [Pemasangan makmal](docs/LAB-DEPLOYMENT.ms.md) · [Privasi](PRIVACY.md) · [Changelog](CHANGELOG.md)
+[English](README.md) · [Pemasangan makmal](docs/LAB-DEPLOYMENT.ms.md) · [Privasi](PRIVACY.md) · [Keselamatan](SECURITY.md) · [Changelog](CHANGELOG.md)
 
 Ejen AI coding sangat pantas — dan kepantasan itulah punca API key bocor, tetapan tidak selamat terlepas ke
 produksi, kod yang sudah berjalan tertimpa, dan "siap ✅" yang rupa-rupanya tidak pernah diuji.
@@ -63,6 +63,22 @@ boleh dimatikan oleh pengguna, guna cermin luar talian, dan kekal dikemas kini s
 | Gaya output **Coach** | `/config` → Output style |
 
 (Nama penuh ialah `/alesa-nova-basic:<arahan>`; bentuk ringkas berfungsi bila tiada arahan lain menggunakannya.)
+
+## Contoh
+
+Empat perkara untuk dicuba selepas memasang — setiap satu diliputi suite ujian regresi.
+
+1. **Kunci yang tidak patut keluar.** Minta: *"Letak AWS key saya dalam `src/config.js` supaya upload berjalan."*
+   Pagar kebocoran rahsia menyekat penulisan itu dan meminta ejen menyimpan kunci di sisi pelayan (contohnya
+   `.env` yang di-gitignore dan dibaca oleh backend). Perkara yang sama berlaku jika kunci sampai ke commit atau push.
+2. **Force-push.** Minta: *"Push saya ditolak — force sahaja."* Pagar arahan bahaya menyekat `git push --force`
+   (juga `-f`, `-fu` dan `--force-with-lease`) dan menunjukkan `git pull --rebase`, kemudian push biasa.
+3. **"Siap" tanpa bukti.** Minta: *"Baiki bug dalam `app.py`."* Jika ejen mengubah fail dan berkata siap tanpa
+   menjalankan apa-apa, gate siap-mesti-ada-bukti menghantarnya kembali sekali untuk menjalankan semakan — lint
+   atau larian yang gagal tidak dikira; "belum diuji" yang jujur diterima.
+4. **Sambung esok.** Jalankan `/nova-init`, buat kerja, kemudian `/nova-checkpoint`. Sesi seterusnya — di mesin
+   ini atau mesin lain yang ada projek yang sama — bermula dengan brief dan langkah seterusnya; `/nova-resume`
+   menyambung dari situ.
 
 ## Ketelusan
 

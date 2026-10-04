@@ -32,6 +32,12 @@ jobs:
           shellcheck --version | sed -n 2p
           shellcheck -s bash --severity=warning hooks/*.sh scripts/*.sh tests/*.sh
 
+      - name: Semgrep (p/default, any finding fails)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          pipx install semgrep==1.178.0
+          semgrep scan --config p/default --error --metrics=off --quiet .
+
       - name: Hook regression suite (default bash)
         run: bash tests/run-tests.sh
 

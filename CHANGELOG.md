@@ -1,5 +1,14 @@
 # Changelog — ALESA NOVA Basic
 
+## 1.3.1 — 2026-10-04
+
+### Changed
+- CI also runs ShellCheck (warnings and errors) on every hook, script and test; the code is clean at that level.
+  `.shellcheckrc` records why two notes are switched off: the hooks match command text, so a quoted `~` or `$HOME`
+  is the text being matched, not a path.
+- CI actions are pinned to a full commit SHA instead of a moving tag.
+- No change to what the guards block or allow (250 checks).
+
 ## 1.3.0 — 2026-10-04
 
 ### Changed

@@ -10,6 +10,8 @@
 #   • Per-user data (logs, backups, state) lives in ~/.nova-basic, mode 700 — private on shared machines.
 #   • bash 3.2 compatible (macOS /bin/bash): no associative arrays, no ${x,,}, no mapfile.
 
+# Variables set here are read by the hooks and scripts that source this file.
+# shellcheck disable=SC2034
 NOVA_HOME="${NOVA_HOME:-$HOME/.nova-basic}"
 mkdir -p "$NOVA_HOME" 2>/dev/null && chmod 700 "$NOVA_HOME" 2>/dev/null
 NOVA_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd)}"
@@ -192,7 +194,7 @@ nova_join_dir() {
 # nova_cmd_dir <command> <cwd> → the folder the command works in: <cwd>, moved by a leading `cd <dir> &&` / `;`.
 nova_cmd_dir() {
   local w
-  w="$(printf '%s' "$1" | grep -oE "^[[:space:]]*cd[[:space:]]+$NOVA_SH_WORD[[:space:]]*(&&|;)" | head -1 \
+  w="$(printf '%s' "$1" | grep -oE "^[[:space:]]*cd[[:space:]]+${NOVA_SH_WORD}[[:space:]]*(&&|;)" | head -1 \
        | sed -E 's/^[[:space:]]*cd[[:space:]]+//; s/[[:space:]]*(&&|;)$//')"
   nova_join_dir "$2" "$(nova_unquote "$w")"
 }

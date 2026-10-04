@@ -10,7 +10,7 @@
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HOOKS="$HERE/../hooks"
-export CLAUDE_PLUGIN_ROOT="$(cd "$HERE/.." && pwd)"   # Claude Code exports this to plugin hooks
+CLAUDE_PLUGIN_ROOT="$(cd "$HERE/.." && pwd)"; export CLAUDE_PLUGIN_ROOT   # Claude Code exports this to plugin hooks
 BASH_BIN="${BASH:-$(command -v bash)}"
 QUICK=""; [ "${1:-}" = --quick ] && QUICK=1
 command -v python3 >/dev/null 2>&1 || { echo "run-tests: python3 is required to build test inputs"; exit 2; }
@@ -314,7 +314,7 @@ H=pre-edit-auto-backup.sh
 printf 'v1\n' > "$P/src/main.py"
 expect "B1 existing file is backed up" 0 $H "$(mkjson tool_name=Edit tool_input.file_path=$P/src/main.py tool_input.new_string=v2)"
 n="$(find "$NOVA_HOME/backups" -name 'main.py.*' 2>/dev/null | wc -l | tr -d ' ')"; [ "$n" = 1 ] && ok || bad "B1b one backup under ~/.nova-basic/backups" "found $n"
-ls "$P/src" | grep -q 'main.py\..' && bad "B1c nothing written next to the file" "backup found in project" || ok
+[ -n "$(find "$P/src" -name 'main.py.?*' 2>/dev/null)" ] && bad "B1c nothing written next to the file" "backup found in project" || ok
 if [ -z "$QUICK" ]; then
 expect "B2 second edit within 5 minutes" 0 $H "$(mkjson tool_name=Edit tool_input.file_path=$P/src/main.py tool_input.new_string=v3)"
 n="$(find "$NOVA_HOME/backups" -name 'main.py.*' | wc -l | tr -d ' ')"; [ "$n" = 1 ] && ok || bad "B2b still one backup" "found $n"

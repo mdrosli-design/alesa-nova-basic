@@ -1,0 +1,4 @@
+# ShellCheck settings for ALESA NOVA Basic.
+# The hooks inspect command TEXT typed by an agent: a quoted "~" or '$HOME' in a pattern is the text being
+# matched, not a path or variable to expand (SC2088, SC2016 would flag every such pattern).
+disable=SC2088,SC2016

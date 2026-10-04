@@ -15,7 +15,7 @@ jobs:
         os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Manifests are valid JSON
         run: |
@@ -24,6 +24,13 @@ jobs:
       - name: Shell syntax
         run: |
           for f in hooks/*.sh scripts/*.sh tests/*.sh; do bash -n "$f"; done
+
+      - name: ShellCheck (warnings and errors)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          command -v shellcheck >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q shellcheck; }
+          shellcheck --version | sed -n 2p
+          shellcheck -s bash --severity=warning hooks/*.sh scripts/*.sh tests/*.sh
 
       - name: Hook regression suite (default bash)
         run: bash tests/run-tests.sh

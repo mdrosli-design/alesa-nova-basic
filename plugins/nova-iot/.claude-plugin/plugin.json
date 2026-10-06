@@ -1,0 +1,22 @@
+{
+  "name": "nova-iot",
+  "displayName": "ALESA NOVA IoT",
+  "version": "0.1.0",
+  "description": "IoT and embedded work done safely: identify the board and its voltages before wiring, back up flash before flashing, MQTT and OTA with authentication and a way back, and proof on the real device before 'done'.",
+  "author": {
+    "name": "Novastack System Sdn. Bhd.",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "MPL-2.0",
+  "homepage": "https://alesa.my",
+  "keywords": [
+    "iot",
+    "embedded",
+    "esp32",
+    "raspberry-pi",
+    "mqtt",
+    "ota",
+    "alesa-nova"
+  ]
+}

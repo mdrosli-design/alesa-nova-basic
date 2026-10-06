@@ -1,0 +1,22 @@
+{
+  "name": "nova-plc-robotics",
+  "displayName": "ALESA NOVA PLC & Robotics",
+  "version": "0.1.0",
+  "description": "PLC, industrial automation and robotics with safety first: safety functions stay with qualified engineers, programs are backed up from the PLC before editing, simulation before site, Modbus/OPC UA done right, commissioning evidence.",
+  "author": {
+    "name": "Novastack System Sdn. Bhd.",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "MPL-2.0",
+  "homepage": "https://alesa.my",
+  "keywords": [
+    "plc",
+    "iec-61131-3",
+    "modbus",
+    "opc-ua",
+    "ros2",
+    "automation",
+    "alesa-nova"
+  ]
+}

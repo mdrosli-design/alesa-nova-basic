@@ -1,0 +1,22 @@
+{
+  "name": "nova-firmware-recovery",
+  "displayName": "ALESA NOVA Firmware Recovery",
+  "version": "0.1.0",
+  "description": "Recover and update firmware on devices you own — CCTV cameras, recorders, routers, discontinued models: identify the hardware, back up the original flash first, recover through vendor tools, UART/U-Boot/TFTP or an SPI programmer, then secure the device.",
+  "author": {
+    "name": "Novastack System Sdn. Bhd.",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "MPL-2.0",
+  "homepage": "https://alesa.my",
+  "keywords": [
+    "firmware",
+    "cctv",
+    "u-boot",
+    "flashrom",
+    "recovery",
+    "openipc",
+    "alesa-nova"
+  ]
+}

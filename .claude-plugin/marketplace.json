@@ -1,6 +1,6 @@
 {
   "name": "alesa-nova",
-  "description": "ALESA NOVA — engineering discipline for AI coding agents. This marketplace hosts ALESA NOVA Basic, the free edition.",
+  "description": "ALESA NOVA — engineering discipline for AI coding agents. This marketplace hosts ALESA NOVA Basic, the free edition, and the free ALESA NOVA knowledge pillars (IoT, PLC & robotics, research, firmware recovery, video).",
   "owner": {
     "name": "Novastack System Sdn. Bhd.",
     "email": "hello@alesa.my",
@@ -13,7 +13,92 @@
       "source": "./",
       "description": "Free guardrails and engineering discipline for AI coding: blocks leaked secrets (incl. AI-provider keys) before commit/push, destructive commands and insecure defaults; backs up before edits; verify-before-done; project continuity (init · checkpoint · resume); Coach mode; AI-use reports; self-testing doctor. Local only. English and Bahasa Malaysia.",
       "category": "security",
-      "tags": ["guardrails", "secrets", "verification", "education", "continuity"],
+      "tags": [
+        "guardrails",
+        "secrets",
+        "verification",
+        "education",
+        "continuity"
+      ],
+      "strict": true
+    },
+    {
+      "name": "nova-iot",
+      "displayName": "ALESA NOVA IoT",
+      "source": "./plugins/nova-iot",
+      "description": "IoT and embedded work done safely: identify the board and its voltages before wiring, back up flash before flashing, MQTT and OTA with authentication and a way back, and proof on the real device before 'done'.",
+      "category": "development",
+      "tags": [
+        "iot",
+        "embedded",
+        "esp32",
+        "raspberry-pi",
+        "mqtt",
+        "ota"
+      ],
+      "strict": true
+    },
+    {
+      "name": "nova-plc-robotics",
+      "displayName": "ALESA NOVA PLC & Robotics",
+      "source": "./plugins/nova-plc-robotics",
+      "description": "PLC, industrial automation and robotics with safety first: safety functions stay with qualified engineers, programs are backed up from the PLC before editing, simulation before site, Modbus/OPC UA done right, commissioning evidence.",
+      "category": "development",
+      "tags": [
+        "plc",
+        "iec-61131-3",
+        "modbus",
+        "opc-ua",
+        "ros2",
+        "automation"
+      ],
+      "strict": true
+    },
+    {
+      "name": "nova-research",
+      "displayName": "ALESA NOVA Research",
+      "source": "./plugins/nova-research",
+      "description": "Research with integrity: every reference verified to exist (DOI, Crossref, OpenAlex, PubMed, arXiv), accurate quotes and numbers, reproducible analysis, sound statistics, ethics and AI-use disclosure.",
+      "category": "development",
+      "tags": [
+        "research",
+        "citations",
+        "thesis",
+        "reproducibility",
+        "academic-integrity"
+      ],
+      "strict": true
+    },
+    {
+      "name": "nova-firmware-recovery",
+      "displayName": "ALESA NOVA Firmware Recovery",
+      "source": "./plugins/nova-firmware-recovery",
+      "description": "Recover and update firmware on devices you own — CCTV cameras, recorders, routers, discontinued models: identify the hardware, back up the original flash first, recover through vendor tools, UART/U-Boot/TFTP or an SPI programmer, then secure the device.",
+      "category": "development",
+      "tags": [
+        "firmware",
+        "cctv",
+        "u-boot",
+        "flashrom",
+        "recovery",
+        "openipc"
+      ],
+      "strict": true
+    },
+    {
+      "name": "nova-video",
+      "displayName": "ALESA NOVA Video",
+      "source": "./plugins/nova-video",
+      "description": "Video, animation and media done reliably: ffmpeg recipes checked with ffprobe and playback, programmatic animation (Manim, Blender, Remotion), captions from speech, and clear rules on copyright and synthetic media.",
+      "category": "development",
+      "tags": [
+        "video",
+        "ffmpeg",
+        "animation",
+        "manim",
+        "blender",
+        "subtitles"
+      ],
       "strict": true
     }
   ]

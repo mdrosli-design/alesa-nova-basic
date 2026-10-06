@@ -1,5 +1,13 @@
 # Changelog — ALESA NOVA Basic
 
+## Marketplace — 2026-10-06
+
+### Added
+- Five free knowledge pillars in the `alesa-nova` marketplace, each its own plugin under `plugins/`:
+  `nova-iot`, `nova-plc-robotics`, `nova-research`, `nova-firmware-recovery`, `nova-video` (version 0.1.0).
+  They are skill packs only (no hooks) and are licensed MPL-2.0, like Basic. Install guide in the README.
+- Basic itself is unchanged (still 1.3.1); installing Basic does not install any pillar.
+
 ## 1.3.1 — 2026-10-04
 
 ### Changed

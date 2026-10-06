@@ -1,0 +1,21 @@
+{
+  "name": "nova-research",
+  "displayName": "ALESA NOVA Research",
+  "version": "0.1.0",
+  "description": "Research with integrity: every reference verified to exist (DOI, Crossref, OpenAlex, PubMed, arXiv), accurate quotes and numbers, reproducible analysis, sound statistics, ethics and AI-use disclosure.",
+  "author": {
+    "name": "Novastack System Sdn. Bhd.",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "MPL-2.0",
+  "homepage": "https://alesa.my",
+  "keywords": [
+    "research",
+    "citations",
+    "thesis",
+    "reproducibility",
+    "academic-integrity",
+    "alesa-nova"
+  ]
+}

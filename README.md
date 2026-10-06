@@ -47,6 +47,22 @@ or turn on automatic updates once: `/plugin` → **Marketplaces** → `alesa-nov
 be switched off per user, use an offline mirror, and keep it updated automatically:
 [docs/LAB-DEPLOYMENT.md](docs/LAB-DEPLOYMENT.md).
 
+### Knowledge pillars (free)
+
+The same marketplace carries five free skill packs that bring the same discipline (back up first, read
+before write, prove it before "done") to specialist work. Install only the ones you need:
+
+```
+/plugin install nova-iot@alesa-nova                 # IoT and embedded (boards, flashing, MQTT, OTA)
+/plugin install nova-plc-robotics@alesa-nova        # PLC, industrial automation and robotics
+/plugin install nova-research@alesa-nova            # research and literature work
+/plugin install nova-firmware-recovery@alesa-nova   # firmware and device recovery
+/plugin install nova-video@alesa-nova               # video production
+```
+
+They guide an AI agent; they do not replace qualified engineers, safety professionals or your own judgement
+for hardware, machinery, mains electricity or research decisions. Licensed MPL-2.0, like Basic.
+
 ## Commands
 
 | Command | |

@@ -1,0 +1,22 @@
+{
+  "name": "nova-video",
+  "displayName": "ALESA NOVA Video",
+  "version": "0.1.0",
+  "description": "Video, animation and media done reliably: ffmpeg recipes checked with ffprobe and playback, programmatic animation (Manim, Blender, Remotion), captions from speech, and clear rules on copyright and synthetic media.",
+  "author": {
+    "name": "Novastack System Sdn. Bhd.",
+    "email": "hello@alesa.my",
+    "url": "https://alesa.my"
+  },
+  "license": "MPL-2.0",
+  "homepage": "https://alesa.my",
+  "keywords": [
+    "video",
+    "ffmpeg",
+    "animation",
+    "manim",
+    "blender",
+    "subtitles",
+    "alesa-nova"
+  ]
+}
